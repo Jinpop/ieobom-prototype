@@ -13595,10 +13595,10 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     ] });
   }
   var OFLOWS = {
-    signup: ["login", "profile", "familyEmpty", "invite", "connectionSuccess", "times", "questions", "notification"],
+    signup: ["login", "profile", "familyEmpty", "parentAs", "invite", "connectionSuccess", "times", "questions", "notification"],
     code: ["code", "login", "profile", "connectionSuccess", "times", "questions", "notification"],
     signupCode: ["login", "profile", "familyEmpty", "code", "connectionSuccess", "times", "questions", "notification"],
-    invite: ["familyEmpty", "invite"],
+    invite: ["familyEmpty", "parentAs", "invite"],
     inviteCode: ["code"]
     // 37차: 이미 가입한 사람이 받은 코드를 넣을 때 (마이 > 연결된 가족 · 앱 안 '누구와 이어볼까요')
   };
@@ -13684,9 +13684,18 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     "482716": { inviter: "아영이", as: "엄마" },
     "593827": { inviter: "아영이", as: "아빠" },
     "715284": { inviter: "엄마", as: "자녀" },
-    "628413": { inviter: "아빠", as: "자녀" }
+    "628413": { inviter: "아빠", as: "자녀" },
     // 37차 시연: 이미 가입한 자녀가 앱 안에서 넣는 아빠의 코드
+    "374159": { inviter: "아영이", as: "엄마", taken: true }
+    // 39차 4회 시연: 아영이에게 이미 다른 엄마가 이어져 있는데 엄마로 받은 코드
   };
+  // 39차 4회: 부모님이 자녀를 초대할 때 고른 '나는 엄마 / 나는 아빠' (시연 부모님은 엄마로 이어져 있다)
+  var PARENT_AS = "엄마";
+  var childInviteCode = () => PARENT_AS === "아빠" ? "628413" : INVITE_CODES["자녀"];
+  // 39차 4회: 초대 코드를 10분 안에 5번 틀리면 10분 동안 막는다 (그동안은 맞는 코드도 안 된다)
+  var CODE_TRIES = [];
+  var CODE_LOCK_UNTIL = 0;
+  var CODE_LOCK_MSG = "코드를 여러 번 틀렸어요. 10분 뒤에 다시 넣어 주세요.";
   var KAKAO_NICK = (as) => as === "엄마" ? "영희" : as === "아빠" ? "철수" : "아영";
   var DOC_KEYS = [["terms", "[필수] 이용약관"], ["privacy", "[필수] 개인정보 수집 \xB7 이용"], ["ai", "[필수] AI 사용 안내 확인"]];
   var DOC_VERSION = "버전 1.0";
@@ -13814,14 +13823,14 @@ body { font-size: 16px; line-height: inherit; color: #000; }
           "운영자는 서비스를 제공하기 위해 다음과 같이 개인정보 처리를 맡깁니다(개인정보 보호법 제26조).",
           "\xB7 Supabase Inc.: 로그인 처리, 회원 정보와 기록 저장, 서버 기능 실행, 통화 녹음 파일 잠깐 보관(서울)",
           "\xB7 네이버클라우드 CLOVA: 말로 한 답 \xB7 근황과 통화 녹음을 글로 바꾸기(글로 바꾼 뒤 녹음은 지움)",
-          "\xB7 Google(Gemini 3.5 Flash-Lite): 교환 질문 초안 \xB7 통화 메모 초안 \xB7 다음 통화 질문 \xB7 근황 주제 고르기",
+          "\xB7 AI 제공사(정한 뒤 이 자리에 적습니다): 교환 질문 초안 \xB7 통화 메모 초안 \xB7 다음 통화 질문 \xB7 근황 주제 고르기",
           "\xB7 LiveKit Inc.: 앱 안 음성 통화 연결과, 두 이용자가 모두 통화 메모 초안을 켠 통화의 녹음",
           "\xB7 Expo \xB7 Apple \xB7 Google: 휴대폰 알림 보내기",
           "맡기는 곳이 바뀌면 이 처리방침을 고쳐 알립니다."
         ] },
         { h: "9. 국외 이전", ps: [
           "개인정보 보호법 제28조의8에 따라 다음과 같이 해외로 이전합니다. 이전은 서비스를 이용할 때마다 암호화된 통신으로 이루어집니다.",
-          "\xB7 Google(미국): AI 문장을 만들 때 필요한 메모 \xB7 근황 글, 통화 메모 초안을 만들 때 글로 바꾼 통화 내용(이름은 관계로 바꿈) / AI 문장 만들기 / 유료 등급을 써서 AI 학습에 쓰지 않으며, 보관 기간은 확인한 뒤 이 자리에 적습니다",
+          "\xB7 AI 제공사(정한 뒤 이 자리에 적습니다): AI 문장을 만들 때 필요한 메모 \xB7 근황 글, 통화 메모 초안을 만들 때 글로 바꾼 통화 내용(이름은 관계로 바꿈) / AI 문장 만들기 / AI 학습에 쓰지 않으며, 이전되는 나라와 보관 기간은 정한 뒤 이 자리에 적습니다",
           "\xB7 Expo(미국): 기기 알림 토큰과 알림 문구 / 휴대폰 알림 전달 / 알림을 보낸 뒤 제공사 정책에 따라 삭제",
           "\xB7 Apple(미국) \xB7 Google(미국): 기기 알림 토큰, 전화 알림 토큰과 알림 문구 / 휴대폰 알림과 걸려온 전화 알림 전달 / 알림을 보낸 뒤 제공사 정책에 따라 삭제",
           "\xB7 LiveKit(미국): 통화 연결에 필요한 접속 정보와 목소리, 두 이용자가 모두 통화 메모 초안을 켠 통화의 녹음 / 앱 안 음성 통화 연결과 녹음 / 녹음 파일은 운영자 서버(서울)에 잠깐 올렸다가 지우며, LiveKit의 보관 기간은 확인한 뒤 이 자리에 적습니다",
@@ -13869,7 +13878,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
         ] },
         { h: "4. 메모가 처리되는 순서", ps: ["통화 메모 초안: 통화 녹음 → 운영자 서버(서울)에 잠깐 올리기 → 음성 인식 서비스로 글로 바꾸기 → 녹음 바로 지우기(늦어도 1시간 안) → AI가 초안 쓰기 → 글로 바꾼 통화 내용 바로 지우기 → 내가 확인하고 글로 고치기 → 저장. 1분이 안 된 통화는 초안을 만들지 않고, 저장하지 않은 초안은 3일 뒤 지웁니다. 두 이용자 중 한 명이라도 끄면 그 통화는 녹음하지 않습니다.", "말로 답하기 \xB7 근황 말로 남기기(근황은 최대 15초) → 글로 바꾸기 → 녹음은 저장하지 않고 바로 지우기 → 내가 확인하고 고치기 → 보내기. 음성 인식이 되지 않으면 글로 쓸 수 있습니다."] },
         { h: "5. 민감한 이야기", ps: ["건강 같은 민감한 내용을 자동으로 골라내거나 분류하지 않습니다. 민감한 이야기는 필요한 만큼만 남겨 주세요."] },
-        { h: "6. AI 제공사에 보내는 정보", ps: ["AI 모델은 Google의 Gemini 3.5 Flash-Lite를 씁니다. 문장을 만들 때에는 필요한 부분(해당 메모 \xB7 근황 글, 메모 초안을 만들 때는 글로 바꾼 통화 내용)만 보내며, 이름 대신 관계(엄마 \xB7 자녀)로 바꿔 보냅니다. 유료 등급을 써서 보낸 내용을 Google이 AI 학습에 쓰지 않습니다. 근황 사진은 AI에 보내지 않습니다."] },
+        { h: "6. AI 제공사에 보내는 정보", ps: ["AI 모델과 제공사는 정한 뒤 이 자리에 적습니다. 문장을 만들 때에는 필요한 부분(해당 메모 \xB7 근황 글, 메모 초안을 만들 때는 글로 바꾼 통화 내용)만 보내며, 이름 대신 관계(엄마 \xB7 자녀)로 바꿔 보냅니다. 보낸 내용은 AI 제공사가 AI 학습에 쓰지 않게 합니다. 근황 사진은 AI에 보내지 않습니다."] },
         { h: "7. 내가 고를 수 있는 것", ps: ["통화 메모 초안은 마이에서 언제든 끌 수 있고, 끄면 그 뒤 통화는 녹음하지 않습니다. 메모는 언제든 고치거나 지울 수 있고, 메모를 지우면 그 메모로 만든 질문도 함께 사라지고, 이후 질문을 만들 때에도 쓰지 않습니다. 통화 편한 시간은 마이에서 언제든 바꾸거나 비울 수 있습니다. 근황은 남기면 늘 상대와 함께 보고, 내가 남긴 근황은 언제든 지울 수 있습니다(지우면 상대 화면에서도 사라집니다). AI가 만든 물어볼 질문 후보는 고르지 않고 마칠 수 있고, 그러면 그 메모로는 질문을 만들지 않습니다."] }
       ]
     }
@@ -13960,6 +13969,14 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     const [noteAgree, setNoteAgree] = (0, import_react2.useState)(false);
     const [relation, setRelation] = (0, import_react2.useState)(() => pick("onb.relation", ""));
     const [code, setCode] = (0, import_react2.useState)(() => pick("onb.code", ""));
+    // 39차 4회: '자녀'를 고른 부모님은 '나는 엄마 / 나는 아빠'를 한 번 고른다. 앱 안에서 더 초대할 때는 전에 고른 값을 골라 둔다
+    const [parentAs, setParentAs] = (0, import_react2.useState)(() => pick("onb.parentAs", mode === "invite" ? PARENT_AS : ""));
+    useSync("onb.parentAs", parentAs);
+    const [locked, setLocked] = (0, import_react2.useState)(() => {
+      if (pick("onb.locked", false)) CODE_LOCK_UNTIL = Date.now() + 6e5;
+      return Date.now() < CODE_LOCK_UNTIL;
+    });
+    useSync("onb.locked", locked);
     const [slots, setSlots] = (0, import_react2.useState)(() => CALL_TIMES.map((l, i) => ({ label: l, on: i === 0 })));
     const [freq, setFreq] = (0, import_react2.useState)(0);
     const [avoidTopics, setAvoidTopics] = (0, import_react2.useState)([]);
@@ -13990,11 +14007,10 @@ body { font-size: 16px; line-height: inherit; color: #000; }
       toastTimer.current = setTimeout(() => setToast(""), 2400);
     }
     const idx = flow.indexOf(step);
-    const progSteps = flow.filter((s) => s !== "connectionSuccess");
+    const progSteps = flow.filter((s) => s !== "connectionSuccess" && (s !== "parentAs" || relation === "자녀"));
     const progIdx = progSteps.indexOf(step);
     const joinMode = mode === "code" || mode === "signupCode";
     const join = JOIN_CODES[code];
-    useSync("onb.as", join ? join.as : "");
     (0, import_react2.useEffect)(() => {
       if (mode !== "signupCode" || !join || !autoNick.current || name !== autoNick.current) return;
       const n = KAKAO_NICK(join.as);
@@ -14020,7 +14036,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     const hasSession = !!SESSION;
     const retParent = SESSION ? SESSION.viewer === "parent" : viewerNow === "parent";
     const retJoin = !(joinMode && join && hasSession) ? "none" : join.as === "자녀" !== (SESSION.viewer === "child") || SESSION.viewer === "parent" && join.as !== "엄마" ? "mismatch" : FAM_STATE[SESSION.viewer === "parent" ? "아영" : "엄마"] === "linked" ? "already" : "link";
-    const [issued, setIssued] = (0, import_react2.useState)(() => linked || step === "invite");
+    const [issued, setIssued] = (0, import_react2.useState)(() => pick("onb.issued", false) || linked || step === "invite");
     const [expired, setExpired] = (0, import_react2.useState)(() => pick("onb.expired", false));
     useSync("onb.expired", expired);
     const [newCode, setNewCode] = (0, import_react2.useState)("");
@@ -14060,7 +14076,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
       idx < flow.length - 1 ? setStep(flow[idx + 1]) : finish();
     }
     function back() {
-      if (mode === "invite" && step === "invite" && allowed && allowed.length === 1) {
+      if (mode === "invite" && (step === "invite" && relation !== "자녀" || step === "parentAs") && allowed && allowed.length === 1) {
         onExit();
         return;
       }
@@ -14072,6 +14088,10 @@ body { font-size: 16px; line-height: inherit; color: #000; }
       if (mode === "inviteCode" && codeFromPick.current) {
         setMode("invite");
         setStep("familyEmpty");
+        return;
+      }
+      if (step === "invite" && relation !== "자녀" && flow[idx - 1] === "parentAs") {
+        setStep(flow[idx - 2]);
         return;
       }
       if (idx > 0) setStep(flow[idx - 1]);
@@ -14092,6 +14112,23 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     const pasteCode = mode === "inviteCode" ? viewerNow === "child" ? "628413" : "482716" : INVITE_CODE;
     const inAppRel = mode === "inviteCode" && join ? viewerNow === "child" ? join.as === "자녀" ? join.inviter : null : join.as === "엄마" ? "자녀" : null : null;
     const inAppErr = mode !== "inviteCode" || !join ? "" : !inAppRel ? "이 코드는 " + (join.as === "자녀" ? "자녀가" : josa(join.as, "이", "가")) + " 넣는 코드예요. 초대한 가족에게 다시 확인해 주세요." : FAM_STATE[inAppRel === "자녀" ? "아영" : inAppRel] === "linked" ? withWa(inAppRel === "자녀" ? "아영이" : inAppRel) + "는 이미 이어져 있어요." : "";
+    // 39차 4회: 여러 번 틀림 · 내가 만든 코드 · 그 자녀에게 엄마(아빠)가 이미 이어진 코드
+    const myCodes = mode === "inviteCode" ? viewerNow === "child" ? ["엄마", "아빠"].filter((n) => FAM_STATE[n] === "pending").map((n) => inviteOf(n).code) : FAM_STATE["아영"] === "pending" ? [inviteOf("자녀").code] : [] : issued && relation ? [newCode || (relation === "자녀" ? childInviteCode() : INVITE_CODES[relation])] : [];
+    const ownCode = code.length === 6 && myCodes.includes(code);
+    const takenErr = join && join.taken && !inAppErr ? join.inviter + "에게는 이미 " + josa(join.as, "이", "가") + " 이어져 있어요." : "";
+    const codeErr = locked ? CODE_LOCK_MSG : ownCode ? "내가 만든 코드예요. 이어질 가족에게 보내 주세요." : inAppErr || takenErr;
+    const codeBlocked = locked || ownCode || !!takenErr;
+    useSync("onb.as", join && !codeBlocked ? join.as : "");
+    (0, import_react2.useEffect)(() => {
+      if (step !== "code" || code.length !== 6 || JOIN_CODES[code] || ownCode || locked) return;
+      const now = Date.now();
+      CODE_TRIES = CODE_TRIES.filter((x) => now - x < 6e5).concat(now);
+      if (CODE_TRIES.length >= 5) {
+        CODE_TRIES = [];
+        CODE_LOCK_UNTIL = now + 6e5;
+        setLocked(true);
+      }
+    }, [code]);
     (0, import_react2.useEffect)(() => {
       if (step !== "invite" || !shared) return;
       const t = setTimeout(() => {
@@ -14177,7 +14214,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StatusBar, {}),
       step !== "connectionSuccess" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 16, minHeight: 36, padding: "14px 24px 28px" }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { width: 50, display: "flex" }, children: showBack && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: back, "aria-label": "뒤로", style: { background: "none", border: "none", cursor: "pointer", padding: "10px 20px 10px 10px", margin: "-4px -14px -4px -10px", display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(IcoBack, {}) }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { flex: 1, display: "flex", justifyContent: "center" }, children: progIdx >= 0 && progSteps.length > 2 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { role: "progressbar", "aria-valuemin": 1, "aria-valuemax": progSteps.length, "aria-valuenow": progIdx + 1, style: { width: "100%", maxWidth: 160, height: 4, borderRadius: 2, background: "#F0EBE5", overflow: "hidden" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { width: (progIdx + 1) / progSteps.length * 100 + "%", height: "100%", borderRadius: 2, background: C.primary, transition: "width .35s ease" } }) }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { flex: 1, display: "flex", justifyContent: "center" }, children: progIdx >= 0 && progSteps.length > 2 && mode !== "invite" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { role: "progressbar", "aria-valuemin": 1, "aria-valuemax": progSteps.length, "aria-valuenow": progIdx + 1, style: { width: "100%", maxWidth: 160, height: 4, borderRadius: 2, background: "#F0EBE5", overflow: "hidden" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { width: (progIdx + 1) / progSteps.length * 100 + "%", height: "100%", borderRadius: 2, background: C.primary, transition: "width .35s ease" } }) }) }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { width: 50, display: "flex", justifyContent: "flex-end" }, children: showSkip && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BtnGhost, { onClick: () => step === "notification" ? finish() : next(), style: { padding: "12px 0 12px 12px", minHeight: 44, fontSize: 16, fontWeight: 600, color: C.textSub }, children: "건너뛰기" }) })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { flex: 1, overflowY: "auto", padding: step === "connectionSuccess" ? 0 : "0 24px" }, children: [
@@ -14219,7 +14256,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
             "가족에게 보일 이름으로 고쳐도 돼요."
           ] }) : "가족에게 이 이름으로 보여요." }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: name, onChange: (e) => setName(e.target.value), onKeyDown: (e) => {
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: name, onChange: (e) => setName(e.target.value.slice(0, 20)), maxLength: 20, onKeyDown: (e) => {
             if (e.key === "Enter" && name.trim()) {
               if (allAgreed) next();
               else setTerms(true);
@@ -14242,7 +14279,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
             setShared(false);
             setExpired(false);
             setNewCode("");
-            next();
+            setStep(opt.label === "자녀" ? "parentAs" : "invite");
           }, style: { ...CARD, opacity: taken[opt.label] ? 0.5 : 1, width: "100%", minHeight: 76, padding: "18px 22px", border: "none", cursor: taken[opt.label] ? "default" : "pointer", textAlign: "left", fontFamily: "inherit", display: "flex", alignItems: "center", justifyContent: "space-between" }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 19, fontWeight: 700, color: C.text, letterSpacing: "-0.03em" }, children: opt.label }),
@@ -14251,6 +14288,11 @@ body { font-size: 16px; line-height: inherit; color: #000; }
             !taken[opt.label] && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(IcoChevronRight, {})
           ] }, opt.label)) }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { textAlign: "center", marginTop: 18 }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BtnGhost, { onClick: goCodePath, style: { minHeight: 44 }, children: "초대 코드를 받았어요" }) })
+        ] }),
+        step === "parentAs" && JS("div", { "data-parent-as": "", children: [
+          J("h2", { style: h2, children: "나는 누구로 이어질까요?" }),
+          J("p", { style: sub, children: mode === "invite" ? JS(import_jsx_runtime.Fragment, { children: ["전에 고른 대로 골라 두었어요.", J("br", {}), "다르면 바꿔 주세요."] }) : JS(import_jsx_runtime.Fragment, { children: ["자녀가 코드를 넣으면", J("br", {}), "'엄마의 자녀로 이어져요'처럼 보여요."] }) }),
+          J("div", { style: { display: "flex", flexDirection: "column", gap: 12 }, children: ["엄마", "아빠"].map((p) => (0, import_jsx_runtime.jsx)(Option, { label: "나는 " + p, selected: parentAs === p, mark: true, onClick: () => setParentAs(p) }, p)) })
         ] }),
         step === "invite" && expired && mode !== "invite" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", { style: h2, children: [
@@ -14263,7 +14305,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
             partnerGe,
             " 다시 보내 주세요."
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { opacity: 0.35 }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CodeDigits, { code: newCode || INVITE_CODES[relName] || INVITE_CODE }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { opacity: 0.35 }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CodeDigits, { code: newCode || (relName === "자녀" ? childInviteCode() : INVITE_CODES[relName]) || INVITE_CODE }) }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { style: { fontSize: 13, color: "#C0392B", textAlign: "center", margin: "12px 0 20px" }, children: [
             EXPIRED_AT,
             "에 끝났어요"
@@ -14287,7 +14329,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
             "이어봄을 깔고 이 코드를 넣으면 바로 이어져요."
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CodeDigits, { code: newCode || INVITE_CODES[relName] || INVITE_CODE }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CodeDigits, { code: newCode || (relName === "자녀" ? childInviteCode() : INVITE_CODES[relName]) || INVITE_CODE }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 13, color: C.textTertiary, textAlign: "center", margin: "12px 0 20px" }, children: "11월 14일 저녁 7시 52분까지 쓸 수 있어요" }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", gap: 10, marginBottom: 16 }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BtnPrimary, { onClick: () => {
@@ -14339,14 +14381,14 @@ body { font-size: 16px; line-height: inherit; color: #000; }
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
             "6자리 숫자예요."
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { className: "eb-code", value: code, onChange: (e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6)), inputMode: "numeric", maxLength: 6, placeholder: "\xB7\xB7\xB7\xB7\xB7\xB7", style: { ...input, height: 64, fontSize: 28, letterSpacing: "0.5em", textAlign: "center", marginBottom: 16, borderColor: code.length === 6 && !join ? "#C0392B" : join ? C.primary : C.border } }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { className: "eb-code", value: code, onChange: (e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6)), inputMode: "numeric", maxLength: 6, placeholder: "\xB7\xB7\xB7\xB7\xB7\xB7", style: { ...input, height: 64, fontSize: 28, letterSpacing: "0.5em", textAlign: "center", marginBottom: 16, borderColor: codeBlocked || code.length === 6 && !join ? "#C0392B" : join ? C.primary : C.border } }),
           code === "" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: () => setCode(pasteCode), style: { width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, padding: "14px 16px", borderRadius: R.btn, border: "none", background: "#F6F3EF", cursor: "pointer", fontFamily: "inherit", textAlign: "left" }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 15, color: C.textSub }, children: "복사한 코드 붙여넣기" }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "eb-code", style: { fontSize: 16, color: C.text, letterSpacing: "0.12em" }, children: pasteCode })
           ] }),
-          code.length === 6 && !join && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 14, color: "#C0392B", lineHeight: 1.6, padding: "0 4px" }, children: code === "000000" ? "48시간이 지나 쓸 수 없는 코드예요. 초대한 가족에게 새 코드를 부탁해 주세요." : code === "111111" ? "이미 연결에 쓴 코드예요. 초대한 가족에게 확인해 주세요." : code === "222222" ? "취소됐거나 새 코드로 바뀐 코드예요. 초대한 가족에게 새 코드를 부탁해 주세요." : "코드가 맞지 않아요. 숫자를 다시 확인해 주세요." }),
-          join && inAppErr && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { "data-code-err": "", style: { fontSize: 14, color: "#C0392B", lineHeight: 1.6, padding: "0 4px 12px" }, children: inAppErr }),
-          join && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { ...CARD, padding: "16px 18px", display: "flex", alignItems: "center", gap: 14 }, children: [
+          code.length === 6 && !join && !locked && !ownCode && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 14, color: "#C0392B", lineHeight: 1.6, padding: "0 4px" }, children: code === "000000" ? "48시간이 지나 쓸 수 없는 코드예요. 초대한 가족에게 새 코드를 부탁해 주세요." : code === "111111" ? "이미 연결에 쓴 코드예요. 초대한 가족에게 확인해 주세요." : code === "222222" ? "취소됐거나 새 코드로 바뀐 코드예요. 초대한 가족에게 새 코드를 부탁해 주세요." : "코드가 맞지 않아요. 숫자를 다시 확인해 주세요." }),
+          codeErr && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { "data-code-err": locked ? "locked" : ownCode ? "own" : takenErr ? "taken" : "", style: { fontSize: 14, color: "#C0392B", lineHeight: 1.6, padding: "0 4px 12px" }, children: codeErr }),
+          join && !codeBlocked && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { ...CARD, padding: "16px 18px", display: "flex", alignItems: "center", gap: 14 }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { width: 44, height: 44, borderRadius: 22, background: C.primaryLight, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BowMark, { width: 30, knot: true }) }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
               /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { style: { fontSize: 15, color: C.textSub, letterSpacing: "-0.02em" }, children: [
@@ -14457,7 +14499,10 @@ body { font-size: 16px; line-height: inherit; color: #000; }
         // 앱 안에서 가족을 더 초대할 때만: 기다리지 않고 닫을 수 있다. 홈에 따로 '연결 대기' 화면은 없고(31차),
         // 상대가 코드를 넣으면 그때 홈 가족 고르기에 들어온다. 보낸 코드는 마이 > 연결된 가족에서 다시 본다
         shared ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BtnPrimary, { onClick: () => finish({ toast: josa(relName, "이", "가") + " 코드를 넣으면 홈에 바로 나와요" }), children: "확인" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BtnSecondary, { onClick: () => finish({ toast: "코드는 마이 > 연결된 가족에서 다시 볼 수 있어요" }), children: "닫기" })
-      ) : step === "code" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BtnPrimary, { onClick: next, disabled: !join || !!inAppErr, children: "연결하기" }) : step === "times" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BtnPrimary, { onClick: () => {
+      ) : step === "parentAs" ? J(BtnPrimary, { onClick: () => {
+        PARENT_AS = parentAs;
+        next();
+      }, disabled: !parentAs, children: "다음" }) : step === "code" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BtnPrimary, { onClick: next, disabled: !join || !!codeErr, children: "연결하기" }) : step === "times" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BtnPrimary, { onClick: () => {
         setTimesDone(true);
         next();
       }, disabled: !slots.some((x) => x.on), children: "다음" }) : step === "notification" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BtnPrimary, { onClick: askPerms, children: "시작하기" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BtnPrimary, { onClick: next, children: "다음" }) }),
@@ -16966,7 +17011,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { width: 36, height: 4, borderRadius: 2, background: C.border, margin: "0 auto 22px" } }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", { style: { fontSize: 21, fontWeight: 800, color: C.text, letterSpacing: "-0.04em", marginBottom: 6 }, children: "이름 바꾸기" }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 15, color: C.textSub, lineHeight: 1.6, marginBottom: 16 }, children: hint }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: v, onChange: (e) => setV(e.target.value.slice(0, 10)), "aria-label": "이름", style: { width: "100%", height: 56, border: "1.5px solid " + C.border, borderRadius: R.btn, padding: "0 16px", fontSize: 18, fontFamily: "inherit", color: C.text, boxSizing: "border-box", outline: "none", marginBottom: 20 } }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", { value: v, onChange: (e) => setV(e.target.value.slice(0, 20)), maxLength: 20, "aria-label": "이름", style: { width: "100%", height: 56, border: "1.5px solid " + C.border, borderRadius: R.btn, padding: "0 16px", fontSize: 18, fontFamily: "inherit", color: C.text, boxSizing: "border-box", outline: "none", marginBottom: 20 } }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BtnPrimary, { onClick: () => onSave(v.trim()), disabled: !v.trim(), children: "저장" }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BtnGhost, { onClick: onClose, style: { width: "100%", textAlign: "center", marginTop: 6 }, children: "닫기" })
       ] })
@@ -17233,7 +17278,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     survey: 11
   };
   var MOTION_STEPS = {
-    onboarding: ["onb.step", ["login", "profile", "familyEmpty", "invite", "code", "connectionSuccess", "times", "questions", "notification"]],
+    onboarding: ["onb.step", ["login", "profile", "familyEmpty", "parentAs", "invite", "code", "connectionSuccess", "times", "questions", "notification"]],
     questionAnswer: ["qa.step", ["form", "expired"]],
     home: ["home.qs", []]
     // 홈은 늘 같은 구성(오늘의 질문 카드 + 네모 넷) — 질문 카드의 상태가 바뀔 때만 살짝 다시 보여준다
@@ -17823,6 +17868,9 @@ body { font-size: 16px; line-height: inherit; color: #000; }
   var ME = { ...ME_DEFAULT };
   function resetMe() {
     Object.assign(ME, ME_DEFAULT);
+    PARENT_AS = "엄마";
+    CODE_TRIES = [];
+    CODE_LOCK_UNTIL = 0;
   }
   var childLabel = () => FAM_STATE["아영"] === "pending" ? "자녀" : "아영";
   function familiesNow() {
@@ -17843,7 +17891,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
   var invKey = (n) => n === "아영" ? "자녀" : n;
   var inviteOf = (n) => INVITES[invKey(n)] = INVITES[invKey(n)] || { code: INVITE_CODE, until: NEW_UNTIL, expired: false };
   function issueInvite(n, sent = true) {
-    INVITES[invKey(n)] = { code: INVITE_CODES[invKey(n)] || INVITE_CODE, until: NEW_UNTIL, expired: false, unsent: !sent };
+    INVITES[invKey(n)] = { code: (invKey(n) === "자녀" ? childInviteCode() : INVITE_CODES[invKey(n)]) || INVITE_CODE, until: NEW_UNTIL, expired: false, unsent: !sent };
   }
   var untilDay = (u) => u.split(" ").slice(0, 2).join(" ");
   var EXPIRED_AT = "11월 12일 저녁 7시";
@@ -18287,7 +18335,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     const [docKey, setDocKey] = (0, import_react2.useState)(() => pick("app.doc", "terms"));
     const [privacyFam, setPrivacyFam] = (0, import_react2.useState)("");
     const [stack, setStack] = (0, import_react2.useState)([]);
-    const [invFlow, setInvFlow] = (0, import_react2.useState)(false);
+    const [invFlow, setInvFlow] = (0, import_react2.useState)(() => pick("app.invFlow", false));
     const [inviteFam, setInviteFam] = (0, import_react2.useState)(() => {
       if (viewer === "parent") {
         if (screen === "inviteMgmt") FAM_STATE["아영"] = "pending";
@@ -18378,7 +18426,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     };
     const back = () => {
       var _a2, _b2;
-      const prev = (_b2 = (_a2 = stack[stack.length - 1]) != null ? _a2 : BACK_FALLBACK[screen]) != null ? _b2 : "home";
+      const prev = (_b2 = (_a2 = stack[stack.length - 1]) != null ? _a2 : screen === "onboarding" && invFlow ? "familyMgmt" : BACK_FALLBACK[screen]) != null ? _b2 : "home";
       setStack(stack.slice(0, -1));
       setScreen(prev);
     };
@@ -18414,7 +18462,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
       queue("onb.mode", "invite");
       if (can.length === 1) {
         queue("onb.relation", can[0]);
-        queue("onb.step", "invite");
+        queue("onb.step", can[0] === "자녀" ? "parentAs" : "invite");
       } else queue("onb.step", "familyEmpty");
       setInvFlow(true);
       open("onboarding");
@@ -18903,13 +18951,14 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     { g: "start", name: "시작하기", key: "splash", set: scr("splash"), note: "서비스를 한 문장으로 소개해요. 오른쪽 위 동그라미 두 개는 팀 시안과 같아요. 초대 코드를 받은 가족은 아래 '초대 코드를 받았어요' 버튼으로 코드부터 넣어요. 글자 링크보다 눈에 잘 띄고 누르기 쉬워요. 이미 쓰던 사람도 '시작하기' → 카카오 로그인으로 기존 계정에 들어가요.", path: "첫 화면 → 움직임이 끝나면 저절로" },
     { g: "start", name: "카카오 로그인", key: "onb:login", set: onb("login"), note: "36차: 가입 · 로그인은 카카오 로그인 하나예요(문자 인증 · 휴대폰 번호 입력을 없앴어요). '카카오로 계속하기'를 누르면 카카오톡(없으면 카카오 계정 화면)으로 넘어가 동의하고 돌아와요. 37차: 설명은 '비밀번호를 따로 만들지 않아요' 한 줄만 둬요. 카카오에서는 이름(닉네임)과 회원번호만 받고, 전화번호 · 친구 목록 · 비밀번호는 받지 않는다고 이 화면에서 먼저 보여줘요. 카카오 로그인이 실패하고 돌아오면 단추 위에 '카카오 로그인이 되지 않았어요 · 인터넷을 확인하고 다시 눌러 주세요'를 보여줘요. 처음이면 닉네임을 이름 칸에 채워 다음으로, 이미 가입한 카카오 계정이면 기존 계정으로 로그인해요. 로그인 중에 '취소'를 누르면 이 화면으로 돌아와요. 로그인한 뒤 이름에서 뒤로 오면 다시 로그인하지 않고 '카카오 계정으로 로그인했어요 · 다음'이에요. 받은 코드로 들어왔으면 제목이 '카카오로 로그인하면 아영이와 이어져요'예요. 전화는 번호 없이 이어봄 안에서 걸어서 번호가 필요 없어요. (명세서 AUTH-01 → 카카오 로그인)", path: "시작하기 → 시작하기 · 코드 확인 → 연결하기", alts: [["카카오 로그인 중", onb("login", { "onb.kakao": true })], ["카카오 로그인이 안 됐을 때", onb("login", { "onb.kakaoErr": true })]] },
     { g: "start", name: "기존 계정으로 로그인", key: "onb:returning", set: onb("login", { "onb.returning": true }), note: "이미 가입한 카카오 계정으로 로그인하면 새 계정을 만들지 않고 기존 계정으로 로그인해요. 연결과 기록은 그대로예요. 마이에서 로그아웃한 뒤 카카오로 다시 로그인해도 이 화면이 뜨고, 로그아웃하기 전 그대로 돌아와요. 탈퇴하면 카카오 연결도 끊어서 같은 카카오 계정으로 와도 새 가입이에요. 37차: 문구는 '이미 가입한 카카오 계정으로 로그인했어요. / 연결과 기록은 그대로예요.' 두 줄. 로그아웃한 계정으로 받은 초대 코드를 넣었으면 코드의 관계가 계정과 맞을 때만 잇고, 셋째 줄에 결과를 붙여요 — '아영이와도 이어졌어요' / '엄마와는 이미 이어져 있어요' / '이 코드는 엄마가 넣는 코드라 이을 수 없어요'(자녀 계정에 엄마로 받은 코드, 엄마 계정에 아빠로 받은 코드). 로그아웃 전에 답을 보내 두고 기다리던 질문은 다시 기다리기 시작해요. 부모님 보기에서 열면 부모님 계정으로 돌아오고 처음부터 큰 글씨예요. (명세서 AUTH-01)", path: "카카오 로그인 → 이미 가입한 카카오 계정" },
-    { g: "start", name: "이름 등록", key: "onb:profile", set: onb("profile", { "onb.name": "아영" }), note: "36차: 카카오 닉네임을 이름 칸에 미리 채워요('카카오 이름을 가져왔어요. 가족에게 보일 이름으로 고쳐도 돼요'). 37차: 엄마 · 아빠로 받은 코드로 가입하면 '아영이 화면에는 '엄마'로 보여요'로 알려줘요(부모님 이름은 자녀 화면에 보이지 않아서). 가입하면서 '자녀'를 고르면(부모님 계정) 고치지 않은 닉네임은 부모님 닉네임으로 다시 채워요. '다음'을 누르면 이용 동의가 아래에서 올라와요. (명세서 AUTH-02)", path: "카카오 로그인 → 카카오에서 동의하고 돌아오면" },
+    { g: "start", name: "이름 등록", key: "onb:profile", set: onb("profile", { "onb.name": "아영" }), note: "36차: 카카오 닉네임을 이름 칸에 미리 채워요('카카오 이름을 가져왔어요. 가족에게 보일 이름으로 고쳐도 돼요'). 37차: 엄마 · 아빠로 받은 코드로 가입하면 '아영이 화면에는 '엄마'로 보여요'로 알려줘요(부모님 이름은 자녀 화면에 보이지 않아서). 가입하면서 '자녀'를 고르면(부모님 계정) 고치지 않은 닉네임은 부모님 닉네임으로 다시 채워요. '다음'을 누르면 이용 동의가 아래에서 올라와요. (명세서 AUTH-02) 39차 4회: 이름은 20자까지만 써져요(카카오 닉네임 최대 길이와 같아요).", path: "카카오 로그인 → 카카오에서 동의하고 돌아오면" },
     { g: "start", name: "이용 동의", key: "onb:terms", set: onb("profile", { "onb.terms": true, "onb.name": "아영" }), note: "화면을 따로 넘기지 않고 이름 아래에서 올라와요. '전체 동의하기'를 누르거나 항목을 하나씩 체크하면 바로 계속할 수 있어요. 36차: 카카오에서 나이를 받지 않으므로 맨 위에 '[필수] 만 14세 이상이에요'를 직접 체크해요(약관 제4조). 내용은 '보기'로 확인해요. 37차: 개인정보 '보기'를 동의 창에서 열면 맨 위에 수집 · 이용 동의 네 가지(목적 · 항목 · 보유 기간 · 거부할 권리)를 표로 먼저 보여줘요(개인정보 보호법 제15조 제2항). 약관에 근황 · 앱 안 통화 · 문의 처리 · 점검 공지 · 이용 제한을 더했어요. AI를 쓴다는 사전 고지(인공지능 기본법 제31조)는 AI 사용 안내로 해요. (명세서 AUTH-02 · AI-05) 39차: 맨 아래 '[선택] 통화 메모 초안 만들기'를 더했어요 — '두 분 모두 켜면 통화를 녹음해 글로 바꾸고 AI가 메모 초안을 써요. 녹음은 글로 바꾸면 바로 지우고, 마이에서 끌 수 있어요.' · '보기'는 AI 사용 안내. 전체 동의에 함께 들어가지만, 선택이라 체크하지 않아도 계속할 수 있어요(그러면 통화 메모 초안이 꺼진 채로 시작). 약관 · 개인정보 · AI 안내의 통화 녹음 문장도 함께 고쳤어요. 39차 3회: 통화 녹음 방식(두 사람 모두 켰을 때만 녹음 · 글로 바꾸자마자 지움, 늦어도 1시간)과 Google Gemini · LiveKit · 네이버클라우드 CLOVA에 맞춰 약관 · 개인정보 · AI 안내를 고쳤어요. Gemini와 LiveKit의 보관 기간은 확인한 뒤 적도록 빈칸으로 뒀어요.", path: "이름 등록 → 다음" },
     { g: "start", name: "약관 보기", key: "onb:doc", set: onb("profile", { "onb.terms": true, "onb.name": "아영", "onb.doc": "terms" }), note: "'보기'로 연 안내문이에요. 끝까지 읽지 않아도 '동의하기'를 누를 수 있고, 누르면 동의 창으로 돌아가요.", path: "이용 동의 → 보기" },
-    { g: "start", name: "누구와 이어볼까요", key: "onb:familyEmpty", set: onb("familyEmpty"), note: "엄마 · 아빠 · 자녀 중 한 분과 1:1로 이어져요. 엄마와 아빠는 따로 연결돼요. 고르면 바로 초대 코드 화면으로 가요. 35차: 관계 이름만 크게 두고 설명 줄은 뺐어요. 37차: 부모님이 자기 역할('엄마')을 누르지 않게 '내가 부모님이면 '자녀'를 골라요' 한 줄을 뒀어요. 앱 안에서 가족을 더 초대할 때도 아래 '초대 코드를 받았어요'로 받은 코드를 넣을 수 있어요. 관계를 다시 고르면 앞서 만든 코드 상태는 비워요. 코드를 받았다면 아래 '초대 코드를 받았어요'로 넣고 그 자리에서 연결돼요. (명세서 REL-01)", path: "이용 동의 → 동의하고 계속" },
+    { g: "start", name: "누구와 이어볼까요", key: "onb:familyEmpty", set: onb("familyEmpty"), note: "엄마 · 아빠 · 자녀 중 한 분과 1:1로 이어져요. 엄마와 아빠는 따로 연결돼요. 고르면 바로 초대 코드 화면으로 가요. 35차: 관계 이름만 크게 두고 설명 줄은 뺐어요. 37차: 부모님이 자기 역할('엄마')을 누르지 않게 '내가 부모님이면 '자녀'를 골라요' 한 줄을 뒀어요. 앱 안에서 가족을 더 초대할 때도 아래 '초대 코드를 받았어요'로 받은 코드를 넣을 수 있어요. 관계를 다시 고르면 앞서 만든 코드 상태는 비워요. 코드를 받았다면 아래 '초대 코드를 받았어요'로 넣고 그 자리에서 연결돼요. (명세서 REL-01) 39차 4회: '자녀'를 고르면(내가 부모님) 바로 초대 코드로 가지 않고 '엄마 · 아빠 고르기'를 한 번 거쳐요.", path: "이용 동의 → 동의하고 계속" },
+    { g: "start", name: "엄마 · 아빠 고르기", key: "onb:parentAs", set: onb("parentAs", { "onb.relation": "자녀" }), note: "39차 4회: 부모님이 '누구와 이어볼까요'에서 '자녀'를 고르면 '나는 엄마 / 나는 아빠'를 한 번 골라요. 받는 자녀의 코드 확인에 '엄마의 자녀로 이어져요'처럼 보이는 값이에요. 고르기 전에는 '다음'이 꺼져 있고, 고른 값에 맞는 코드를 만들어요(시연: 엄마 715284 · 아빠 628413). 마이 > 연결된 가족(또는 이어진 가족 없음)의 '가족 초대하기'로 자녀를 더 초대할 때도 이 화면을 거치고, 이때는 전에 고른 값을 미리 골라 둬요('전에 고른 대로 골라 두었어요. 다르면 바꿔 주세요'). 시안의 부모님은 자녀 한 명(아영)만 둘 수 있어서, 앱 안에서는 아영이와 연결이 끊긴 뒤 다시 초대하는 경우로 보여 줘요(다른 경우 단추). (명세서 REL-01)", path: "누구와 이어볼까요 → 자녀", alts: [["앱 안에서 더 초대할 때 (전에 고른 값)", scr("onboarding", { "onb.mode": "invite", "onb.step": "parentAs", "onb.relation": "자녀", "app.invFlow": true, "app.viewer": "parent", "app.solo": true })]] },
     { g: "start", name: "초대 코드", key: "onb:invite", set: onb("invite"), note: "29차: 가입 중에는 상대가 코드를 넣어 연결돼야 다음으로 가요('닫기' 없음). 연결돼야 앱을 쓸 수 있고, 앱을 닫았다 열면 이 화면으로 돌아와 기다려요. 6자리 코드를 카카오톡으로 보내거나 복사하고(48시간 · 37차: '이어봄을 깔고 이 코드를 넣으면 바로 이어져요'), 시연에서는 보낸 뒤 6초면 연결돼요. 연결되면 상대에게 보이는 것과 보이지 않는 것도 짧게 함께 보여줘요. (명세서 REL-03 · PRIV-02) 이미 앱을 쓰다가 가족을 더 초대할 때만 아래 '닫기'로 닫을 수 있고, 코드를 보낸 뒤에는 '확인'(알림: '엄마가 코드를 넣으면 홈에 바로 나와요')으로 바뀌어요. 31차: 이때도 홈에 '연결 대기' 화면은 없어요 — 상대가 코드를 넣으면 그때 홈 가족 고르기에 들어오고, 보낸 코드는 마이 > 연결된 가족(또는 홈 +)에서 다시 봐요. 38차: 아래에 '엄마가 코드를 넣으면 알림으로 알려 드릴게요 · 알림 받기'를 두어, 앱을 닫아도 이어지면 알림이 오게 했어요. 여기서 알림을 켜면 가입 마지막에는 마이크만 물어요.", path: "누구와 이어볼까요 → 엄마" },
     { g: "start", name: "초대 코드 기한 지남", key: "onb:inviteExpired", set: onb("invite", { "onb.expired": true }), note: "가입 중 기다리던 초대 코드가 48시간 안에 입력되지 않았을 때예요. 앱을 다시 열면 이 화면이 떠요(끝난 때는 지난 시각). '새 코드 만들기'를 누르면 새 코드(시연 926351)로 바뀌고 이전 코드는 쓸 수 없어요. 새 코드를 다시 보내고 기다려요. (명세서 REL-04)", path: "초대 코드 → 48시간 동안 연결되지 않음" },
-    { g: "start", name: "코드 입력", key: "onb:code", set: onb("code", { "onb.mode": "code" }), note: "초대 코드를 받은 가족은 코드부터 넣어요. 복사해 둔 코드가 있으면 한 번에 붙여넣을 수 있어요. 틀린 코드 · 48시간이 지난 코드 · 이미 쓴 코드는 나눠서 알려줘요. (명세서 REL-05) 37차: 이미 가입한 사람도 마이 > 연결된 가족 '받은 초대 코드 넣기'로 넣어요 — 내 관계와 맞지 않는 코드('이 코드는 엄마가 넣는 코드예요') · 이미 이어진 가족이면 입력칸 아래에 알려줘요. 시연: 482716 엄마로 · 593827 아빠로 · 715284 자녀로 받은 코드, 628413 아빠가 보낸 자녀용 코드(앱 안에서), 000000 지난 코드, 111111 이미 쓴 코드 38차: 초대가 취소됐거나 새 코드로 바뀐 옛 코드는 '취소됐거나 새 코드로 바뀐 코드예요'로 나눠 알려요(시연 222222).", path: "시작하기 → 초대 코드를 받았어요" },
+    { g: "start", name: "코드 입력", key: "onb:code", set: onb("code", { "onb.mode": "code" }), note: "초대 코드를 받은 가족은 코드부터 넣어요. 복사해 둔 코드가 있으면 한 번에 붙여넣을 수 있어요. 틀린 코드 · 48시간이 지난 코드 · 이미 쓴 코드는 나눠서 알려줘요. (명세서 REL-05) 37차: 이미 가입한 사람도 마이 > 연결된 가족 '받은 초대 코드 넣기'로 넣어요 — 내 관계와 맞지 않는 코드('이 코드는 엄마가 넣는 코드예요') · 이미 이어진 가족이면 입력칸 아래에 알려줘요. 시연: 482716 엄마로 · 593827 아빠로 · 715284 자녀로 받은 코드, 628413 아빠가 보낸 자녀용 코드(앱 안에서), 000000 지난 코드, 111111 이미 쓴 코드 38차: 초대가 취소됐거나 새 코드로 바뀐 옛 코드는 '취소됐거나 새 코드로 바뀐 코드예요'로 나눠 알려요(시연 222222). 39차 4회: 입력칸 아래 문구를 셋 더했어요(시작하기 쪽과 앱 안 '받은 초대 코드 넣기' 같음). ① 10분 안에 5번 틀리면 10분 동안 막혀요 — '코드를 여러 번 틀렸어요. 10분 뒤에 다시 넣어 주세요.' 그동안은 맞는 코드를 넣어도 이어지지 않아요(없는 코드 · 지난 코드 · 쓴 코드 · 취소된 코드를 모두 틀린 것으로 세요). ② 내가 만든 코드를 넣으면 '내가 만든 코드예요. 이어질 가족에게 보내 주세요.' ③ 그 자녀에게 엄마(아빠)가 이미 이어져 있는데 엄마(아빠)로 받은 코드를 넣으면 '아영이에게는 이미 엄마가 이어져 있어요.'(시연 374159) — 같은 두 사람이 다시 넣는 '엄마와는 이미 이어져 있어요'와 따로예요. 셋 다 '연결하기'가 꺼지고 초대한 사람 카드는 보이지 않아요.", path: "시작하기 → 초대 코드를 받았어요", alts: [["여러 번 틀렸을 때", onb("code", { "onb.mode": "code", "onb.locked": true })], ["내가 만든 코드를 넣었을 때", onb("code", { "onb.mode": "signupCode", "onb.code": "482716", "onb.issued": true })], ["이미 엄마가 이어진 자녀의 코드", onb("code", { "onb.mode": "code", "onb.code": "374159" })], ["앱 안 · 여러 번 틀렸을 때", scr("onboarding", { "onb.mode": "inviteCode", "onb.step": "code", "onb.locked": true, "app.invFlow": true, "app.viewer": "child" })], ["앱 안 · 내가 만든 코드", scr("onboarding", { "onb.mode": "inviteCode", "onb.step": "code", "onb.code": "593827", "app.invFlow": true, "app.viewer": "child" })]] },
     { g: "start", name: "코드 확인 · 엄마로", key: "onb:code:엄마", set: onb("code", { "onb.mode": "code", "onb.code": "482716" }), note: "아영이가 엄마로 초대한 코드예요. 누가 어떤 관계로 초대했는지 보여주고(37차: '아영이 엄마로 이어져요'를 크게, 아래에 '맞지 않으면 아영이에게 물어봐 주세요'), '연결하기'를 누르면 카카오 로그인 · 이름 · 동의를 마친 뒤 바로 연결돼요. 가입을 마치면 부모님 화면이에요. (명세서 REL-05 · ONB-01)", path: "코드 입력 → 482716" },
     { g: "start", name: "코드 확인 · 아빠로", key: "onb:code:아빠", set: onb("code", { "onb.mode": "code", "onb.code": "593827" }), note: "아영이가 아빠로 초대한 코드예요. 엄마와 따로 연결되고, 가입을 마치면 부모님 화면이에요. (명세서 REL-05 · ONB-01)", path: "코드 입력 → 593827" },
     { g: "start", name: "코드 확인 · 자녀로", key: "onb:code:자녀", set: onb("code", { "onb.mode": "code", "onb.code": "715284" }), note: "엄마가 자녀로 초대한 코드예요. 가입을 마치면 자녀 화면이고, 초대한 엄마와 연결돼요. (명세서 REL-05 · ONB-01)", path: "코드 입력 → 715284" },
@@ -18962,8 +19011,8 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     { g: "archive", name: "달력 · 그날 기록", key: "arc:calDay", set: scr("archive", { "arc.view": "cal", "cal.pick": "2026-11-04", "arc.sel": "2026-11-04:question" }), note: "달력에서 날짜 아래 기록을 누르면 목록과 같은 상세가 떠요. 질문이면 두 사람의 답, 메모면 내 메모 · 기분 · 다음 통화 때 여쭤볼 이야기(누르면 여쭤봤어요)예요. 메모를 고치고 돌아오면 보던 달과 날짜, 달력 보기가 그대로예요. 부모님 쪽에는 부모님이 쓴 메모만 보여요.", path: "기록 → 달력 → 날짜 → 기록 누르기" },
     { g: "archive", name: "달력 · 그날 근황", key: "arc:calNews", set: scr("archive", { "arc.view": "cal", "cal.pick": "2026-11-10", "arc.news": "n-mom" }), note: "연한 분홍 하트가 있는 날을 고르면 그날 근황이 기록과 같은 줄로 뜨고, 누르면 목록 · 홈 카드와 같은 근황 상세가 떠요. 받은 근황은 다음 통화 때 여쭤볼 이야기를 물어봤으면 눌러 표시하고, 내 근황은 지울 수 있어요. 지우면 목록과 달력에서 함께 빠져요.", path: "기록 → 달력 → 하트 날짜 → 근황 누르기" },
     { g: "archive", name: "달력 · 지난달", key: "arc:calPrev", set: scr("archive", { "arc.view": "cal", "cal.prev": true }), note: "달 옆 화살표로 지난달 기록도 볼 수 있어요. 가족과 이어진 달보다 앞으로는 가지 않아요.", path: "기록 → 달력 → 이전 달" },
-    { g: "my", name: "마이", key: "settings", set: scr("settings"), note: "연결된 가족 · 통화 편한 시간 · 알림 · 글자 크기 · 설문 · 안내 문서 · 로그아웃 · 탈퇴. 36차: 이름 아래에 번호 대신 '카카오 계정으로 로그인'을 보여줘요. '가족 전화 받기' 줄(휴대폰 알림 · 마이크가 켜져 있는지 보고 꺼진 것만 '켜기')을 더했어요. 37차: '도움말 · 문의'를 아홉 가지로 늘리고(전화가 안 울려요 · 글자가 작아요 · 급한 일 · 요금 · 내 메모를 가족이 보나요 · 통화 편한 시간 바꾸기 · 초대 코드 다시 보내기 · 카카오톡이 없어요 · 휴대폰을 바꿨어요) 답마다 그 자리에서 할 수 있는 단추(알림 · 마이크 확인하기, 글자 크게 보기 켜기 등)를 달았어요. 보낸 문의는 아래 '보낸 문의 · 답을 기다려요'로 남고, 답이 오면 알림과 이 화면으로 알려요. 줄마다 지금 설정이 설명으로 보여요. 안내 문서는 이름만 두고, 동의한 날과 버전은 아래 한 줄로 보여줘요. 설문 제목은 계정을 만든 지 몇 주인지로 바뀌어요(시연 계정은 이어진 지 42일이라 6주차). 가족마다 다른 설정(질문 횟수 · 주제)은 연결된 가족 > 설정에 있어요. (명세서 AUTH-02 · ACC-01 · DATA-04) 38차: 이름 옆 '이름 바꾸기'(가족에게 보일 이름 · 빈 이름은 저장 꺼짐). 보낸 문의는 도움말 맨 위에 '답을 기다려요' / '답이 왔어요' + 이어봄 답변으로 남아요(다른 경우 '문의에 답이 왔을 때'). 설문 카드는 0 · 3 · 6주차마다 따로 떠요. 39차: '통화 메모 초안' 켜고 끄기를 더했어요(가입 때 고른 대로 시작 · 두 사람 모두 켜야 만들어져요 · 끄면 다음 통화부터 녹음하지 않아요). 도움말에 '통화 내용이 저장되나요?'를 더해 열 가지예요. 39차 2회: 설문 카드를 내 이름 블록 바로 아래(연결된 가족 위)로 올렸어요.", path: "아래 탭 → 마이", alts: [["가족 전화 받기", scr("settings", { "my.callReady": true })], ["가족 전화 · 알림이 꺼졌을 때", scr("settings", { "my.callReady": true, "app.osNotifOff": true })], ["도움말 · 문의", scr("settings", { "my.help": true })], ["문의에 답이 왔을 때", scr("settings", { "my.help": true, "app.inquiryAnswered": true })], ["이름 바꾸기", scr("settings", { "my.name": true })]] },
-    { g: "my", name: "연결된 가족", key: "familyMgmt", set: scr("familyMgmt"), note: "엄마는 연결됨, 아빠는 초대 코드만 보낸 상태예요. 31차: 코드만 보낸 가족은 홈 · 기록에는 나오지 않고 여기에만 '초대 코드 보냄'으로 보여요. 카드 어디를 눌러도 연결된 가족은 설정, 코드만 보낸 가족은 초대 코드로 가요. 초대 코드의 끝나는 날(기한이 지났으면 그렇게)도 보여줘요. 새로 초대할 가족이 없으면(엄마 · 아빠 모두 있음) 가족 초대하기 버튼을 두지 않아요. 37차: 맨 아래 '받은 초대 코드 넣기' — 이미 가입한 사람도 가족이 보낸 코드를 여기서 넣어요(로그아웃하지 않아도). 부모님 화면에서는 자녀를 '아영이'로 불러요. (명세서 REL-01 · REL-04 · REL-05)", path: "마이 → 연결된 가족" },
+    { g: "my", name: "마이", key: "settings", set: scr("settings"), note: "연결된 가족 · 통화 편한 시간 · 알림 · 글자 크기 · 설문 · 안내 문서 · 로그아웃 · 탈퇴. 36차: 이름 아래에 번호 대신 '카카오 계정으로 로그인'을 보여줘요. '가족 전화 받기' 줄(휴대폰 알림 · 마이크가 켜져 있는지 보고 꺼진 것만 '켜기')을 더했어요. 37차: '도움말 · 문의'를 아홉 가지로 늘리고(전화가 안 울려요 · 글자가 작아요 · 급한 일 · 요금 · 내 메모를 가족이 보나요 · 통화 편한 시간 바꾸기 · 초대 코드 다시 보내기 · 카카오톡이 없어요 · 휴대폰을 바꿨어요) 답마다 그 자리에서 할 수 있는 단추(알림 · 마이크 확인하기, 글자 크게 보기 켜기 등)를 달았어요. 보낸 문의는 아래 '보낸 문의 · 답을 기다려요'로 남고, 답이 오면 알림과 이 화면으로 알려요. 줄마다 지금 설정이 설명으로 보여요. 안내 문서는 이름만 두고, 동의한 날과 버전은 아래 한 줄로 보여줘요. 설문 제목은 계정을 만든 지 몇 주인지로 바뀌어요(시연 계정은 이어진 지 42일이라 6주차). 가족마다 다른 설정(질문 횟수 · 주제)은 연결된 가족 > 설정에 있어요. (명세서 AUTH-02 · ACC-01 · DATA-04) 38차: 이름 옆 '이름 바꾸기'(가족에게 보일 이름 · 빈 이름은 저장 꺼짐). 보낸 문의는 도움말 맨 위에 '답을 기다려요' / '답이 왔어요' + 이어봄 답변으로 남아요(다른 경우 '문의에 답이 왔을 때'). 설문 카드는 0 · 3 · 6주차마다 따로 떠요. 39차: '통화 메모 초안' 켜고 끄기를 더했어요(가입 때 고른 대로 시작 · 두 사람 모두 켜야 만들어져요 · 끄면 다음 통화부터 녹음하지 않아요). 도움말에 '통화 내용이 저장되나요?'를 더해 열 가지예요. 39차 2회: 설문 카드를 내 이름 블록 바로 아래(연결된 가족 위)로 올렸어요. 39차 4회: '이름 바꾸기'도 20자까지예요(전에는 10자).", path: "아래 탭 → 마이", alts: [["가족 전화 받기", scr("settings", { "my.callReady": true })], ["가족 전화 · 알림이 꺼졌을 때", scr("settings", { "my.callReady": true, "app.osNotifOff": true })], ["도움말 · 문의", scr("settings", { "my.help": true })], ["문의에 답이 왔을 때", scr("settings", { "my.help": true, "app.inquiryAnswered": true })], ["이름 바꾸기", scr("settings", { "my.name": true })]] },
+    { g: "my", name: "연결된 가족", key: "familyMgmt", set: scr("familyMgmt"), note: "엄마는 연결됨, 아빠는 초대 코드만 보낸 상태예요. 31차: 코드만 보낸 가족은 홈 · 기록에는 나오지 않고 여기에만 '초대 코드 보냄'으로 보여요. 카드 어디를 눌러도 연결된 가족은 설정, 코드만 보낸 가족은 초대 코드로 가요. 초대 코드의 끝나는 날(기한이 지났으면 그렇게)도 보여줘요. 새로 초대할 가족이 없으면(엄마 · 아빠 모두 있음) 가족 초대하기 버튼을 두지 않아요. 37차: 맨 아래 '받은 초대 코드 넣기' — 이미 가입한 사람도 가족이 보낸 코드를 여기서 넣어요(로그아웃하지 않아도). 부모님 화면에서는 자녀를 '아영이'로 불러요. (명세서 REL-01 · REL-04 · REL-05) 39차 4회: 부모님이 '가족 초대하기'로 자녀를 초대할 때도 '엄마 · 아빠 고르기'를 거치고 전에 고른 값을 골라 둬요. '받은 초대 코드 넣기'도 코드 입력과 같이 여러 번 틀림 · 내가 만든 코드 · 이미 엄마가 이어진 자녀의 코드를 입력칸 아래에 알려요.", path: "마이 → 연결된 가족" },
     { g: "my", name: "엄마와의 설정", key: "relSettings", set: scr("relSettings", { "app.relFamily": "엄마" }), note: "이 가족에게만 해당하는 것만 모았어요: 질문 받는 횟수 · 피하고 싶은 주제 · 요즘 궁금한 것 · 보이는 정보 · 연결 끊기. 고른 주제는 상대에게 알리지 않는다고 한 줄로 알려줘요. 연결을 끊으면 그 가족이 목록과 홈에서 빠져요(35차: 기록은 지우지 않아서, 다시 초대해 이으면 예전 기록이 그대로 보여요). 되돌릴 수 있는 것(횟수 · 주제)은 확인 없이 바로, 연결 끊기만 한 번 더 물어요(37차: '새 질문과 알림, 이어봄 통화가 멈춰요. 다시 이어지면 지금까지의 기록을 볼 수 있어요'). 부모님 화면은 '아영이와의 설정' · '둘 중 적은 쪽'으로(자녀까지 높이지 않게). 끊긴 쪽은 따로 알림 없이 그 가족이 목록에서 빠져요. 내가 고른 횟수가 상대보다 많으면 '주 1번 · 두 분 중 적은 쪽'처럼 실제로 받는 횟수를 보여주고, 바꾼 횟수는 다음 주부터 적용돼요. (명세서 Q-06 · Q-09 · REL-06) 38차: 피하고 싶은 주제는 'AI 질문에서 빼요'로 좁혔어요(가족이 직접 만든 질문은 쓴 그대로 가요). 39차 3회: 횟수 칸에 요일을 함께 보여줘요 — 주 1번 (목요일) · 주 2번 (월 · 목) · 주 3번 (월 · 수 · 금).", path: "마이 → 연결된 가족 → 엄마 설정" },
     { g: "my", name: "요즘 궁금한 것", key: "relSettings:curious", set: scr("relSettings", { "app.relFamily": "엄마", "rs.curious": true }), note: "상대의 어떤 이야기가 궁금한지 주제를 골라 둬요(선택). 상대가 그 주제로 근황을 보내면 통화 화면 · 홈 카드의 여쭤볼 이야기에서 먼저 보여줘요. 누가 무엇을 궁금해하는지는 상대에게 알리지 않아요. 근황 주제와 같은 목록이라 두 사람 정보가 겹치는 곳을 규칙으로 찾아요. (28차 · 교수님 피드백: 부모님 · 나 · 공유 정보의 교차점)", path: "엄마와의 설정 → 요즘 궁금한 것" },
     { g: "my", name: "초대 관리", key: "inviteMgmt", set: scr("inviteMgmt"), note: "시작할 때 본 초대 코드 화면과 같은 짜임이에요: 큰 제목 → 코드와 남은 시간 → 카카오톡 · 복사 → 기다리는 중 → 연결되면 보이는 것. 초대 취소는 맨 아래에 있고, 확인 창 단추는 '그대로 두기' · '초대 취소하기'예요(37차). 취소하면 그 가족이 목록에서 빠지고, 뒤로 가면 들어온 곳(홈 또는 연결된 가족)으로 돌아가요. (명세서 REL-04 · PRIV-02)", path: "연결된 가족 → 아빠 코드 보기" },
@@ -18973,7 +19022,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     { g: "my", name: "알림 받는 시각", key: "notifSetting", set: scr("notifSetting"), note: "알림을 켜고 끄고, 하루 한 번 받을 시각을 골라요. '알림 받기' 줄 어디를 눌러도 켜고 꺼져요. 36차: 가족 전화는 바로 울린다는 한 줄을 더했어요(알림 받기를 꺼도 전화는 울려요). 37차: '알림과 따로'를 빼고 '가족이 건 전화는 바로 울려요.'로 줄였어요. 바꾸고 저장하지 않은 채 뒤로 가면 확인 창이 떠요. 저장 단추는 맨 아래에 늘 있어요(35차). (명세서 PUSH-02)", path: "마이 → 알림 받는 시각" },
     { g: "my", name: "휴대폰 알림이 꺼졌을 때", key: "notifSetting:os", set: scr("notifSetting", { "app.osNotifOff": true }), note: "가입 때 휴대폰 알림 허용 창에서 '허용 안 함'을 고른 경우예요. 앱에서는 켜져 있어도 알림이 오지 않고 36차부터는 가족 전화도 울리지 않으니 맨 위에 먼저 알려주고('…정한 시각에 알림이 오고, 가족 전화도 울려요'), '휴대폰 설정 열기' 버튼 하나로 켤 수 있게 했어요. 마이 줄에도 '휴대폰 설정에서 꺼져 있어요'로 보여요. 홈은 알림과 상관없이 그대로예요. (명세서 PUSH-01 · 02)", path: "알림 허용 창 → 허용 안 함 → 마이 → 알림 받는 시각" },
     { g: "my", name: "가족에게 보이는 정보", key: "privacyCenter", set: scr("privacyCenter"), note: "연결된 가족에게 보이는 것과 나에게만 보이는 것을 한 화면에 보여줘요. 33차: 근황과 사진은 모두 보이고('나만 남기기' 없음), 보내는 날 전의 내가 만든 질문 · 요즘 궁금한 것 · 캘린더 일정 내용은 보이지 않아요. 엄마와의 설정에서 열면 제목이 '엄마에게 보이는 정보'가 돼요. (명세서 PRIV-02) 39차: '나에게만 보여요'에 메모 초안을 더하고, 맨 아래 문장을 '통화는 두 분 모두 통화 메모 초안을 켰을 때만 녹음하고, 녹음은 글로 바꾸면 바로, 글로 바꾼 통화 내용은 초안을 만든 뒤 지워요'로 바꿨어요(39차 3회).", path: "마이 → 가족에게 보이는 정보" },
-    { g: "my", name: "안내 문서", key: "docView", set: scr("docView", { "app.doc": "ai" }), note: "가입 때 동의한 약관 · 개인정보 · AI 안내를 다시 읽어요.", path: "마이 → AI 사용 · 메모 처리 안내" },
+    { g: "my", name: "안내 문서", key: "docView", set: scr("docView", { "app.doc": "ai" }), note: "가입 때 동의한 약관 · 개인정보 · AI 안내를 다시 읽어요. 39차 4회: AI 모델을 아직 정하지 않아 개인정보 처리방침(처리 위탁 · 국외 이전)과 AI 사용 안내(6. AI 제공사에 보내는 정보)의 Google(Gemini) 표기를 '정한 뒤 이 자리에 적습니다'로 비웠어요. 휴대폰 알림을 보내는 Google은 그대로예요.", path: "마이 → AI 사용 · 메모 처리 안내" },
     { g: "my", name: "탈퇴", key: "withdraw", set: scr("settings", { "my.withdraw": true }), note: "37차: 창은 한 문장으로 줄였어요 — '메모와 기록이 모두 지워지고 엄마 · 아빠와의 연결도 끊겨요. 되돌릴 수 없어요.' 탈퇴하면 기록 · 설정이 모두 지워지고 가족과의 연결 · 이어봄 통화 · 카카오 로그인 연결도 끊겨요. 같은 카카오 계정으로 와도 새 가입이에요. 취소하면 그대로예요. (명세서 ACCOUNT-01)", path: "마이 → 탈퇴하기" },
     { g: "my", name: "이용 설문", key: "survey", set: scr("survey"), note: "0 · 3 · 6주차에 앱 안에서 짧은 설문을 받아요. 제목은 계정을 만든 지 몇 주인지로 바뀌어요(처음: '이어봄을 시작하며', 3주 · 6주: '○주 써보니 어떠세요?'). 셋을 다 골라야 보낼 수 있고, 고르다 뒤로 가면 한 번 물어요. 보내면 마이의 설문 카드가 사라져요. 문항은 운영팀이 정한 문항으로 바꿔 넣으면 돼요. (명세서 DATA-04) 38차: 설문은 차수마다 따로 남겨서, 처음에 보냈어도 3주 · 6주차에 카드가 다시 떠요.", path: "마이 → 이어봄, 6주 써보니 어떠세요?" },
     { g: "push", name: "잠금 화면 알림", key: "lock", set: scr("lock"), note: "알림은 하루에 한 번, 정한 시각(기본 저녁 7시)에 새 질문 · 열린 답 · 통화 편한 시간을 모아서 와요. 상대가 근황을 보낸 날에는 그날 알림에 한 줄 더해요(알림 수는 늘리지 않아요). 39차: 월요일에 '이번 주 근황'을 묻던 줄은 없앴어요. 마이에서 알림을 끄거나 휴대폰에서 막으면 오지 않고, 시각을 바꾸면 그 시각에 와요. 이어진 가족이 없거나 초대 코드만 보낸 가족이면 그 관계의 알림은 없고, '둘 다 통화 편한 시간'은 두 분 시간이 겹칠 때만 붙어요. 알림을 누르면 이어봄 홈이 열리고, 그 알림의 카드부터 보여요(39차): 새 질문 · 서로의 답 알림은 질문 카드, 근황 알림은 '새 근황' 카드. 재촉하거나 죄책감을 주는 말은 쓰지 않아요. 36차: 걸려온 전화는 하루 한 번 알림을 기다리지 않고 바로 울려요. 받지 못한 전화는 '엄마에게서 이어봄 전화가 왔었어요. 눌러서 걸어 보세요'로 바로 한 번 오고(알림 받기를 꺼도 휴대폰 알림이 켜져 있으면), 누르면 홈 맨 앞 '못 받은 전화' 카드가 보여요. (명세서 PUSH-01 · 02 · 03) 38차: 가족이 둘 이상 이어져 있으면 알림 위에 '이어봄 · 엄마'처럼 누구의 알림인지. 알림 시각이 두 분 시간이 끝난 뒤(밤 9시)면 '오늘 저녁은 …' 줄을 붙이지 않아요. 다른 경우 '그 밖의 알림': 초대한 가족이 코드를 넣어 이어졌어요(→ 그 가족의 홈) · 문의 답(→ 도움말) · 먼저 온 답(→ 홈 카드) · 지난주 질문(→ 질문 종료). 이어졌어요 · 문의 답은 하루 한 번 묶음과 따로 바로 와요.", path: "휴대폰 잠금 화면", alts: [["못 받은 전화 알림", scr("lock", { "home.missed": true })], ["그 밖의 알림", scr("lock", { "app.lockMore": true })], ["가족이 둘일 때", scr("lock", { "app.dadLinked": true })], ["밤 9시 알림", scr("lock", { "app.notifTime": 3 })]] }
