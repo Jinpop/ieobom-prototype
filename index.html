@@ -14009,7 +14009,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 10 }, children: [
         mark(false),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 15, color: C.textSub, lineHeight: 1.55 }, children: "안 보여요 \xB7 메모" })
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 15, color: C.textSub, lineHeight: 1.55 }, children: "안 보여요 \xB7 통화 메모" })
       ] })
     ] });
   }
@@ -14606,7 +14606,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
               checkMark(noteAgree),
               JS("span", { style: { display: "flex", flexDirection: "column", gap: 3, paddingTop: 2 }, children: [
                 J("span", { style: { fontSize: 15, color: C.text }, children: "[선택] 통화 메모 초안 만들기" }),
-                J("span", { style: { fontSize: 13, color: C.textTertiary, lineHeight: 1.5 }, children: "두 분 모두 켜면 통화를 녹음해 글로 바꾸고 AI가 메모 초안을 써요. 녹음은 글로 바꾸면 바로 지우고, 마이에서 끌 수 있어요." })
+                J("span", { style: { fontSize: 13, color: C.textTertiary, lineHeight: 1.5 }, children: "두 분 모두 켜면 통화를 녹음해 글로 바꾸고 AI가 통화 메모 초안을 써요. 녹음은 글로 바꾸면 바로 지우고, 마이에서 끌 수 있어요." })
               ] })
             ] }),
             JS("button", { onClick: () => setDoc("ai"), style: { flexShrink: 0, background: "none", border: "none", cursor: "pointer", fontFamily: "inherit", fontSize: 14, color: C.textTertiary, padding: "12px 6px 12px 14px", margin: "-1px 0", display: "flex", alignItems: "center", gap: 2 }, children: [
@@ -14894,7 +14894,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { "aria-label": "이어온 기록", style: { display: "flex", alignItems: "center", background: WELL, borderRadius: R.sm, padding: "14px 4px", marginBottom: 14 }, children: [
           stat(qCount + "개", "함께 답한 질문"),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { width: 1, height: 28, background: C.border } }),
-          stat(memoCount + "개", "남긴 메모"),
+          stat(memoCount + "개", "남긴 통화 메모"),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { width: 1, height: 28, background: C.border } }),
           stat(days ? days + "일" : "첫날", "이어진 지")
         ] }),
@@ -14915,7 +14915,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
       dot && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { "aria-hidden": "true", style: { position: "absolute", top: 10, right: 10, width: 9, height: 9, borderRadius: 5, background: hot ? C.white : "#E8590C", boxShadow: "0 0 0 2px " + (hot ? C.primary : C.white) } })
     ] });
   }
-  var NOTICE = { title: "11월 20일 새벽 2시 – 4시 점검 안내", body: "이 시간에는 이어봄 통화와 알림이 잠시 멈춰요. 쓰던 메모와 기록은 그대로예요.", note: "" };
+  var NOTICE = { title: "11월 20일 새벽 2시 – 4시 점검 안내", body: "이 시간에는 이어봄 통화와 알림이 잠시 멈춰요. 쓰던 통화 메모와 기록은 그대로예요.", note: "" };
   function NoticeSheet({ onClose, onDone }) {
     return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { "data-notice-sheet": "", style: { position: "fixed", inset: 0, zIndex: 300 }, onClick: onClose, children: [
       /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { position: "absolute", inset: 0, background: "rgba(0,0,0,0.32)" } }),
@@ -14945,7 +14945,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
         "가족이 없어요"
       ] }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 15, color: expired ? "#C0392B" : C.textSub, lineHeight: 1.65, marginBottom: 20 }, children: !invited ? left ? "내가 남긴 메모와 답은 기록에 그대로 있어요." : cut ? "다시 이어지면 지난 기록도 그대로 보여요." : "가족과 이어지면 시작할 수 있어요." : expired ? withKke(invited) + " 보낸 초대 코드 기한이 지났어요." : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 15, color: expired ? "#C0392B" : C.textSub, lineHeight: 1.65, marginBottom: 20 }, children: !invited ? left ? "내가 남긴 통화 메모와 답은 기록에 그대로 있어요." : cut ? "다시 이어지면 지난 기록도 그대로 보여요." : "가족과 이어지면 시작할 수 있어요." : expired ? withKke(invited) + " 보낸 초대 코드 기한이 지났어요." : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
         josa(invited, "이", "가"),
         " 이 코드를 넣으면",
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
@@ -14986,7 +14986,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
               parent ? "물어볼" : "여쭤볼",
               " 이야기"
             ] }),
-            askRaw ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tag, { tone: "plain", children: "내가 쓴 메모" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tag, { children: "AI" })
+            askRaw ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tag, { tone: "plain", children: "내가 쓴 통화 메모" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tag, { children: "AI" })
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 16, color: C.text, lineHeight: 1.55 }, children: ask })
         ] }),
@@ -15016,11 +15016,11 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     const list = open ? asks : asks.slice(0, 1);
     return JS("div", { "data-call-asks": asks.length, style: { width: "100%", marginTop: 16, background: "rgba(255,255,255,0.1)", borderRadius: R.sm, padding: "12px 16px 6px", textAlign: "left", boxSizing: "border-box", maxHeight: open ? 300 : void 0, overflowY: open ? "auto" : "visible", flexShrink: 0 }, children: [
       JS("button", { onClick: () => asks.length > 1 && setOpen(!open), "aria-expanded": open, disabled: asks.length < 2, style: { width: "100%", display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", padding: "2px 0 4px", cursor: asks.length > 1 ? "pointer" : "default", fontFamily: "inherit", color: "rgba(255,255,255,0.75)", fontSize: 13, fontWeight: 600 }, children: [
-        J("span", { style: { flex: 1, textAlign: "left" }, children: word + " 이야기" + (asks.length > 1 ? " " + asks.length + "개" : "") + " \xB7 나만 보여요" }),
+        J("span", { style: { flex: 1, textAlign: "left" }, children: word + " 이야기 \xB7 나만 보여요" }),
         asks.length > 1 && JS("span", { style: { display: "flex", alignItems: "center", gap: 3 }, children: [open ? "접기" : "모두 보기", J("svg", { width: "12", height: "12", viewBox: "0 0 16 16", fill: "none", style: { transform: open ? "rotate(180deg)" : "none" }, children: J("path", { d: "M4 6l4 4 4-4", stroke: "rgba(255,255,255,0.75)", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round" }) })] })
       ] }),
       asks.length === 0 ? J("p", { style: { fontSize: 15, color: "rgba(255,255,255,0.7)", lineHeight: 1.6, padding: "4px 0 8px" }, children: "이번엔 " + word + " 이야기가 없어요." }) : list.map((a, i) => JS("div", { style: { padding: "8px 0", borderTop: i ? "1px solid rgba(255,255,255,0.14)" : "none" }, children: [
-        JS("p", { style: { fontSize: 17, fontWeight: 600, lineHeight: 1.5, color: "#FFFFFF" }, children: [a.text, a.raw && J("span", { style: { marginLeft: 6, fontSize: 12, fontWeight: 700, color: "#2A2420", background: "#EDE6DC", borderRadius: 5, padding: "1px 6px", verticalAlign: "2px" }, children: "내가 쓴 메모" })] }),
+        JS("p", { style: { fontSize: 17, fontWeight: 600, lineHeight: 1.5, color: "#FFFFFF" }, children: [a.text, a.raw && J("span", { style: { marginLeft: 6, fontSize: 12, fontWeight: 700, color: "#2A2420", background: "#EDE6DC", borderRadius: 5, padding: "1px 6px", verticalAlign: "2px" }, children: "내가 쓴 통화 메모" })] }),
         J("p", { style: { fontSize: 13, color: "rgba(255,255,255,0.6)", lineHeight: 1.45, marginTop: 2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }, children: a.note })
       ] }, a.id))
     ] });
@@ -15620,7 +15620,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
       tips.length > 0 && JS("div", { style: { background: WELL, borderRadius: R.sm, padding: "12px 14px", marginTop: 14 }, children: [
         JS("div", { style: { display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }, children: [
           J("span", { style: { fontSize: 13, fontWeight: 600, color: C.textSub }, children: "이번 통화 때 " + (who === "parent" ? "물어볼" : "여쭤볼") + " 이야기" }),
-          !many && (tips[0].t.raw ? J(Tag, { tone: "plain", children: "내가 쓴 메모" }) : J(Tag, { children: "AI" })),
+          !many && (tips[0].t.raw ? J(Tag, { tone: "plain", children: "내가 쓴 통화 메모" }) : J(Tag, { children: "AI" })),
           J("span", { style: { flex: 1 } }),
           J(OnlyMe, {})
         ] }),
@@ -15652,7 +15652,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
   function DraftCard({ family, draft, onOpen, onDelete }) {
     return JS("section", { "aria-label": "통화 메모 초안", "data-card": "draft", style: CARD_BOX, children: [
       J(CardHead, { label: "통화 메모 초안", tone: "primary", right: J(OnlyMe, {}) }),
-      J("h3", { style: { ...bigTitle, fontSize: 21, marginBottom: 4 }, children: draft.seen ? "저장하지 않은 메모가 있어요" : "통화 메모 초안이 다 됐어요" }),
+      J("h3", { style: { ...bigTitle, fontSize: 21, marginBottom: 4 }, children: draft.seen ? "저장하지 않은 통화 메모가 있어요" : "통화 메모 초안이 다 됐어요" }),
       J("p", { style: { ...secSub, marginBottom: 12 }, children: dateLabel(draft.key, true) + " · " + withWa(family) + "의 통화" }),
       JS("div", { style: { background: WELL, borderRadius: R.sm, padding: "12px 14px" }, children: [
         J("div", { style: { marginBottom: 6 }, children: J(Tag, { children: "AI 초안" }) }),
@@ -16035,8 +16035,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
             /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { fontSize: 13, fontWeight: 700, color: C.textTertiary, letterSpacing: "-0.01em" }, children: [
               "이번 통화 때 ",
               ask,
-              " 이야기",
-              talks.length > 0 ? " " + talks.length + "개" : ""
+              " 이야기"
             ] }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tag, { children: "AI" }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { flex: 1 } }),
@@ -16049,7 +16048,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
           ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 15, color: C.textTertiary, lineHeight: 1.6, padding: "4px 0 8px" }, children: "통화 메모를 저장하거나 근황을 주고받으면 여기에 쌓여요." }) : (more ? talks : talks.slice(0, 3)).map((t, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "12px 0", borderTop: i ? "1px solid " + C.border : "none" }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "flex-start", gap: 8 }, children: [
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { flex: 1, fontSize: 17, fontWeight: 600, color: C.text, lineHeight: 1.5, letterSpacing: "-0.02em" }, children: t.text }),
-              t.raw && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tag, { tone: "plain", children: "내가 쓴 메모" }),
+              t.raw && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tag, { tone: "plain", children: "내가 쓴 통화 메모" }),
               J("button", { "data-talk-drop": t.id, onClick: () => {
                 t.ref.dropped = true;
                 dataChanged();
@@ -16158,7 +16157,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: onBack, "aria-label": "뒤로", style: { background: "none", border: "none", cursor: "pointer", padding: "10px 20px 10px 10px", margin: "-4px -14px -4px -10px", display: "flex" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(IcoBack, {}) }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { fontSize: 20, fontWeight: 800, color: C.text, letterSpacing: "-0.04em", flex: 1 }, children: [
           withWa(family),
-          "의 메모장"
+          "의 통화 메모"
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)(OnlyMe, {})
       ] }),
@@ -16180,8 +16179,8 @@ body { font-size: 16px; line-height: inherit; color: #000; }
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { width: 26, height: 26, borderRadius: 13, border: "2px solid " + C.border, background: C.white, flexShrink: 0 } }),
             !e.pending ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { style: { flex: 1, fontSize: 17, color: C.text, lineHeight: 1.5 }, children: [
               e.text,
-              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { display: "block", fontSize: 13, color: C.textTertiary, marginTop: 3, lineHeight: 1.45 }, children: e.raw ? "AI 문장 대신 내가 쓴 메모" : e.note })
-            ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "eb-waiting", style: { flex: 1, fontSize: 15, color: C.textTertiary, lineHeight: 1.5 }, children: "메모를 보고 만들고 있어요…" })
+              /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { display: "block", fontSize: 13, color: C.textTertiary, marginTop: 3, lineHeight: 1.45 }, children: e.raw ? "AI 문장 대신 내가 쓴 통화 메모" : e.note })
+            ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "eb-waiting", style: { flex: 1, fontSize: 15, color: C.textTertiary, lineHeight: 1.5 }, children: "통화 메모를 보고 만들고 있어요…" })
           ] }, e.id)) }),
           asks.some((e) => !e.pending) && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { style: { fontSize: 14, color: C.textTertiary, margin: "8px 4px 0" }, children: [
             who === "parent" ? "물어봤으면" : "여쭤봤으면",
@@ -16190,14 +16189,14 @@ body { font-size: 16px; line-height: inherit; color: #000; }
         ] }),
         memos.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { textAlign: "center", padding: "56px 24px" }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { width: 56, height: 56, borderRadius: 28, background: C.primaryLight, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 18px" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(IcoNote, {}) }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 18, fontWeight: 700, color: C.text, marginBottom: 8 }, children: "아직 남긴 메모가 없어요" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 18, fontWeight: 700, color: C.text, marginBottom: 8 }, children: "아직 남긴 통화 메모가 없어요" }),
           /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { style: { fontSize: 15, color: C.textTertiary, lineHeight: 1.65 }, children: [
             "통화에서 기억하고 싶은 이야기를",
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {}),
             "한 줄만 남겨 보세요."
           ] })
         ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 17, fontWeight: 800, color: C.text, letterSpacing: "-0.03em", margin: "0 4px 12px" }, children: "남긴 메모" }),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 17, fontWeight: 800, color: C.text, letterSpacing: "-0.03em", margin: "0 4px 12px" }, children: "남긴 통화 메모" }),
           memos.map((e, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
             (i === 0 || monthOf(memos[i - 1].date) !== monthOf(e.date)) && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MonthHead, { first: i === 0, children: monthOf(e.date) }),
             entryRow(e, () => setSel(e))
@@ -16212,7 +16211,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(BtnPrimary, { onClick: onWrite, style: { flex: 1, width: "auto" }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)(IcoPen, { color: C.white }),
-          "메모 쓰기"
+          "통화 메모 쓰기"
         ] })
       ] }),
       selNow && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArchiveDetailSheet, { entry: selNow, family, parent: who === "parent", onClose: () => setSel(null), onEdit: () => {
@@ -16221,7 +16220,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
       }, onDeleted: () => {
         deleteRecord(selNow.rec);
         setSel(null);
-        flash("메모를 지웠어요");
+        flash("통화 메모를 지웠어요");
       } })
     ] });
   }
@@ -16305,13 +16304,13 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     const save = () => {
       if (rec) {
         updateMemoRec(rec, who, text, mood);
-        onSaved("메모를 고쳤어요");
+        onSaved("통화 메모를 고쳤어요");
         return;
       }
       if (draft0) setDraft(dataFamily, who, null);
       const r = saveMemoRec(dataFamily, who, draft0 ? draft0.key : target.key, text, mood);
       if (after || r.text) setSaved(r);
-      else onSaved("메모를 남겼어요");
+      else onSaved("통화 메모를 남겼어요");
     };
     if (saved || savedPreset) {
       const moodOnly = !!saved && !saved.text;
@@ -16322,7 +16321,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
           saved.aiPending = false;
           dataChanged();
         } else if (saved) chooseAsk(saved, list);
-        onSaved(list.length ? "다음 통화 때 " + ask + " 이야기 " + list.length + "개를 넣었어요" : "메모를 남겼어요");
+        onSaved(list.length ? "다음 통화 때 " + ask + " 이야기 " + list.length + "개를 넣었어요" : "통화 메모를 남겼어요");
       };
       if (moodOnly) return JS("div", { style: { width: "100%", height: "100%", background: C.bg, display: "flex", flexDirection: "column" }, children: [
         J(StatusBar, {}),
@@ -16348,7 +16347,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
             J("h2", { style: { fontSize: 23, fontWeight: 800, color: C.text, letterSpacing: "-0.04em" }, children: "기록에 남겼어요" })
           ] }),
           JS("div", { style: { display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }, children: [
-            J("p", { style: { fontSize: 16, fontWeight: 700, color: C.text }, children: "남긴 메모" }),
+            J("p", { style: { fontSize: 16, fontWeight: 700, color: C.text }, children: "남긴 통화 메모" }),
             J(OnlyMe, {})
           ] }),
           J("div", { style: { background: WELL, borderRadius: R.sm, padding: "12px 16px", marginBottom: 26 }, children: J("p", { style: { fontSize: 16, color: C.text, lineHeight: 1.6, padding: "3px 0", whiteSpace: "pre-line" }, children: saved ? saved.text : demo }) }),
@@ -16358,10 +16357,10 @@ body { font-size: 16px; line-height: inherit; color: #000; }
           ] }),
           !failed && J("p", { style: { fontSize: 14, color: C.textTertiary, lineHeight: 1.6, margin: "-4px 0 10px" }, children: "여러 개 골라도 돼요. 고른 이야기는 다음 통화 때 보여 드려요." }),
           failed ? JS("p", { "data-ai-fail": "", style: { fontSize: 15, color: C.textSub, lineHeight: 1.6, padding: "10px 2px" }, children: [
-            "지금은 만들지 못했어요. 메모는 남았어요.",
+            "지금은 만들지 못했어요. 통화 메모는 남았어요.",
             J("br", {}),
             "기록에서 이 메모를 열면 다시 만들 수 있어요."
-          ] }) : pending2 || !cands ? J("p", { className: "eb-waiting", style: { fontSize: 15, color: C.textTertiary, lineHeight: 1.6, padding: "14px 2px" }, children: "메모를 보고 만들고 있어요…" }) : J("div", { style: { display: "flex", flexDirection: "column", gap: 10 }, children: cands.map((q) => {
+          ] }) : pending2 || !cands ? J("p", { className: "eb-waiting", style: { fontSize: 15, color: C.textTertiary, lineHeight: 1.6, padding: "14px 2px" }, children: "통화 메모를 보고 만들고 있어요…" }) : J("div", { style: { display: "flex", flexDirection: "column", gap: 10 }, children: cands.map((q) => {
             const on = qPicks.includes(q);
             return JS("button", { onClick: () => setQPicks((v) => on ? v.filter((x) => x !== q) : [...v, q]), "aria-pressed": on, "aria-label": ask + " 이야기: " + q, style: { width: "100%", minHeight: 58, padding: "14px 16px 14px 18px", borderRadius: R.btn, border: "1.5px solid " + (on ? C.primary : C.primarySoft), background: on ? C.primaryLight : C.white, cursor: "pointer", fontFamily: "inherit", textAlign: "left", display: "flex", alignItems: "center", gap: 12 }, children: [
               J("span", { style: { flex: 1, fontSize: 17, fontWeight: 600, color: C.text, lineHeight: 1.45, letterSpacing: "-0.02em" }, children: q }),
@@ -16391,7 +16390,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
       J(StatusBar, {}),
       JS("div", { style: { display: "flex", alignItems: "center", gap: 8, padding: "10px 24px 14px" }, children: [
         J("button", { onClick: back, "aria-label": "뒤로", style: { background: "none", border: "none", cursor: "pointer", padding: "10px 20px 10px 10px", margin: "-4px -14px -4px -10px", display: "flex" }, children: J(IcoBack, {}) }),
-        J("p", { style: { fontSize: 16, fontWeight: 700, color: C.text, letterSpacing: "-0.02em", flex: 1 }, children: after ? "통화 후 메모" : rec ? "메모 고치기" : "새 메모" }),
+        J("p", { style: { fontSize: 16, fontWeight: 700, color: C.text, letterSpacing: "-0.02em", flex: 1 }, children: after ? "통화 후 메모" : rec ? "통화 메모 고치기" : "새 통화 메모" }),
         !rec && J(OnlyMe, {}),
         rec && J("button", { onClick: () => setAskDel(true), style: { background: "none", border: "none", cursor: "pointer", fontFamily: "inherit", fontSize: 15, fontWeight: 600, color: "#C0392B", padding: "12px 0 12px 20px", margin: "-4px 0" }, children: "지우기" })
       ] }),
@@ -16419,7 +16418,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
           J("p", { className: "eb-waiting", style: { fontSize: 16, color: C.textTertiary, lineHeight: 1.6 }, children: "통화 내용을 정리하고 있어요…" }),
           J("p", { style: { fontSize: 14, color: C.textSub, lineHeight: 1.6, marginTop: 10 }, children: "통화 길이에 따라 시간이 더 걸릴 수 있어요. 나가도 괜찮아요. 다 되면 홈의 '통화 메모 초안' 카드로 알려 드려요." })
         ] }) : JS(import_jsx_runtime.Fragment, { children: [
-          J("div", { style: { border: "1.5px solid " + (noteState === "draft" ? C.primarySoft : C.border), borderRadius: R.card, padding: "8px 18px 10px", marginBottom: 12 }, children: J("textarea", { value: text, onChange: (e) => setText(e.target.value), "aria-label": "메모", placeholder: "예: " + (parent ? "아영이 다음 주에 이사한대" : "무릎 검사 다음 주래"), style: { width: "100%", minHeight: 30 * lines, border: "none", outline: "none", resize: "none", padding: 0, fontSize: 17, fontFamily: "inherit", color: C.text, background: "transparent", letterSpacing: "-0.01em", boxSizing: "border-box", display: "block", ...RULED(30) } }) }),
+          J("div", { style: { border: "1.5px solid " + (noteState === "draft" ? C.primarySoft : C.border), borderRadius: R.card, padding: "8px 18px 10px", marginBottom: 12 }, children: J("textarea", { value: text, onChange: (e) => setText(e.target.value), "aria-label": "통화 메모", placeholder: "예: " + (parent ? "아영이 다음 주에 이사한대" : "무릎 검사 다음 주래"), style: { width: "100%", minHeight: 30 * lines, border: "none", outline: "none", resize: "none", padding: 0, fontSize: 17, fontFamily: "inherit", color: C.text, background: "transparent", letterSpacing: "-0.01em", boxSizing: "border-box", display: "block", ...RULED(30) } }) }),
           noteLine && J("p", { "data-note-line": noteState, style: { fontSize: 13, color: C.textTertiary, lineHeight: 1.55, margin: "-4px 2px 12px" }, children: noteLine }),
         ] }),
         J("div", { style: { height: 24 } })
@@ -16427,12 +16426,12 @@ body { font-size: 16px; line-height: inherit; color: #000; }
       J("div", { style: { padding: "8px 24px 44px" }, children: after && draft0 && drafting ? J(BtnSecondary, { onClick: keepDraft, children: "홈으로 가기" }) : after && draft0 ? JS("div", { style: { display: "flex", flexDirection: "column", gap: 4 }, children: [
         J(BtnPrimary, { onClick: save, disabled: drafting || !text.trim(), children: "저장" }),
         J(BtnGhost, { onClick: keepDraft, style: GHOST_WIDE, children: "나중에 하기" })
-      ] }) : after && !text.trim() && !mood && !voice.active ? J(BtnSecondary, { onClick: onBack, style: { background: C.white, color: C.text, boxShadow: "inset 0 0 0 1.5px " + C.border }, children: checked.length ? "메모 없이 마치기" : "지금은 건너뛰기" }) : J(BtnPrimary, { onClick: save, disabled: !(text.trim() || mood) || !dirty || voice.active, children: "저장" }) }),
-      leave && J(Dialog, { title: rec ? "고친 내용이 있어요" : "쓰던 메모가 있어요", body: rec ? "저장하지 않고 나가면 고친 내용은 지워져요." : "저장하지 않고 나가면 쓴 내용은 지워져요.", confirmLabel: "나가기", cancelLabel: "계속 쓰기", onConfirm: () => {
+      ] }) : after && !text.trim() && !mood && !voice.active ? J(BtnSecondary, { onClick: onBack, style: { background: C.white, color: C.text, boxShadow: "inset 0 0 0 1.5px " + C.border }, children: checked.length ? "통화 메모 없이 마치기" : "지금은 건너뛰기" }) : J(BtnPrimary, { onClick: save, disabled: !(text.trim() || mood) || !dirty || voice.active, children: "저장" }) }),
+      leave && J(Dialog, { title: rec ? "고친 내용이 있어요" : "쓰던 통화 메모가 있어요", body: rec ? "저장하지 않고 나가면 고친 내용은 지워져요." : "저장하지 않고 나가면 쓴 내용은 지워져요.", confirmLabel: "나가기", cancelLabel: "계속 쓰기", onConfirm: () => {
         setLeave(false);
         onBack();
       }, onCancel: () => setLeave(false) }),
-      askDel && rec && J(Dialog, { title: "메모를 지울까요?", body: "지운 메모와 그 메모로 만든 질문은 다시 볼 수 없어요.", confirmLabel: "지우기", danger: true, onConfirm: () => {
+      askDel && rec && J(Dialog, { title: "통화 메모를 지울까요?", body: "지운 통화 메모와 그 메모로 만든 질문은 다시 볼 수 없어요.", confirmLabel: "지우기", danger: true, onConfirm: () => {
         setAskDel(false);
         deleteRecord(rec);
         onDeleted();
@@ -16695,7 +16694,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
           SheetHead,
           {
             kind: isMemo ? "memo" : "question",
-            label: isMemo ? "메모" : "질문",
+            label: isMemo ? "통화 메모" : "질문",
             date: dateLabel(entry.key, true),
             right: isMemo ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(OnlyMe, {}) : entry.rec.madeBy ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tag, { tone: "family", children: entry.rec.madeBy === (parent ? "parent" : "child") ? "내가 만든 질문" : (parent ? "아영이가" : josa(family, "이", "가")) + " 만든 질문" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tag, { children: "AI가 만든 질문" })
           }
@@ -16724,7 +16723,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
         ] }),
         isMemo && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { marginBottom: 20 }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { background: WELL, borderRadius: R.sm, padding: "14px 16px" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 16, color: memo2 ? C.text : C.textTertiary, lineHeight: 1.65 }, children: memo2 || "기분만 남겼어요" }) }),
-          aiQ ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AskToggle, { text: aiRaw ? "위 메모를 보고 " + (parent ? "물어봐요" : "여쭤봐요") : aiQ, rec: entry.rec, parent, raw: aiRaw }) : entry.rec.aiFailed && !entry.rec.aiPending ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { "data-ai-retry": "", style: { borderTop: "1px solid " + C.border, paddingTop: 16, marginTop: 18 }, children: [
+          aiQ ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AskToggle, { text: aiRaw ? "위 통화 메모를 보고 " + (parent ? "물어봐요" : "여쭤봐요") : aiQ, rec: entry.rec, parent, raw: aiRaw }) : entry.rec.aiFailed && !entry.rec.aiPending ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { "data-ai-retry": "", style: { borderTop: "1px solid " + C.border, paddingTop: 16, marginTop: 18 }, children: [
             /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }, children: [
               /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { style: { fontSize: 14, fontWeight: 700, color: C.textSub }, children: [
                 "다음 통화 때 ",
@@ -16744,7 +16743,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
               ] }),
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tag, { children: "AI" })
             ] }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "eb-waiting", style: { fontSize: 15, color: C.textTertiary, lineHeight: 1.6, paddingTop: 8 }, children: "메모를 보고 다시 만들고 있어요…" })
+            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { className: "eb-waiting", style: { fontSize: 15, color: C.textTertiary, lineHeight: 1.6, paddingTop: 8 }, children: "통화 메모를 보고 다시 만들고 있어요…" })
           ] })
         ] }),
         isMemo ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", flexDirection: "column", gap: 8 }, children: [
@@ -16752,13 +16751,13 @@ body { font-size: 16px; line-height: inherit; color: #000; }
             /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BtnSecondary, { onClick: onClose, style: { flex: 1, width: "auto", background: "#F3F0EC", color: C.textSub }, children: "닫기" }),
             /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(BtnSecondary, { onClick: onEdit, style: { flex: 1, width: "auto" }, children: [
               /* @__PURE__ */ (0, import_jsx_runtime.jsx)(IcoEdit, {}),
-              "메모 고치기"
+              "통화 메모 고치기"
             ] })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BtnGhost, { onClick: () => setAsk(true), style: { textAlign: "center", width: "100%", color: "#C0392B" }, children: "메모 지우기" })
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BtnGhost, { onClick: () => setAsk(true), style: { textAlign: "center", width: "100%", color: "#C0392B" }, children: "통화 메모 지우기" })
         ] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BtnSecondary, { onClick: onClose, children: "닫기" })
       ] }),
-      ask && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Dialog, { title: "메모를 지울까요?", body: "지운 메모와 그 메모로 만든 질문은 다시 볼 수 없어요.", confirmLabel: "지우기", danger: true, onConfirm: () => {
+      ask && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Dialog, { title: "통화 메모를 지울까요?", body: "지운 통화 메모와 그 메모로 만든 질문은 다시 볼 수 없어요.", confirmLabel: "지우기", danger: true, onConfirm: () => {
         setAsk(false);
         onDeleted();
       }, onCancel: () => setAsk(false) })
@@ -16816,7 +16815,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
       setPerson((people.find((p) => p.name === n) || people[0]).key);
       setPicked(null);
     } }) });
-    const chips = J("div", { "data-arc-filter": tab, style: { display: "flex", gap: 6, marginBottom: left ? 20 : 12, paddingLeft: 4 }, children: [{ k: "all", l: "전체" }, { k: "memo", l: "메모" }, { k: "question", l: "질문" }, { k: "news", l: "근황" }].map((t) => J("button", { onClick: () => setTab(t.k), "aria-pressed": tab === t.k, style: { flexShrink: 0, height: 44, padding: "0 16px", borderRadius: R.chip, border: "none", background: tab === t.k ? C.text : "#F3F0EC", color: tab === t.k ? C.white : C.textSub, fontSize: 15, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }, children: t.l }, t.k)) });
+    const chips = J("div", { "data-arc-filter": tab, style: { display: "flex", gap: 6, marginBottom: left ? 20 : 12, paddingLeft: 4 }, children: [{ k: "all", l: "전체" }, { k: "memo", l: "통화 메모" }, { k: "question", l: "질문" }, { k: "news", l: "근황" }].map((t) => J("button", { onClick: () => setTab(t.k), "aria-pressed": tab === t.k, style: { flexShrink: 0, height: 44, padding: "0 16px", borderRadius: R.chip, border: "none", background: tab === t.k ? C.text : "#F3F0EC", color: tab === t.k ? C.white : C.textSub, fontSize: 15, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }, children: t.l }, t.k)) });
     const keep = () => {
       queue("arc.tab", tab);
       queue("arc.who", person);
@@ -16830,10 +16829,10 @@ body { font-size: 16px; line-height: inherit; color: #000; }
         !waiting && personPick
       ] }),
       JS("div", { "data-arc-scroll": "", style: { flex: 1, overflowY: "auto", padding: "0 20px" }, children: [
-        waiting ? J(NoFamily, { parent, what: "메모 \xB7 질문 \xB7 근황이", onInvite, onInviteMgmt, onCode }) : JS(import_jsx_runtime.Fragment, { children: [
+        waiting ? J(NoFamily, { parent, what: "통화 메모 \xB7 질문 \xB7 근황이", onInvite, onInviteMgmt, onCode }) : JS(import_jsx_runtime.Fragment, { children: [
           left && JS("div", { "data-arc-left": "", style: { background: WELL, borderRadius: R.sm, padding: "14px 16px", marginBottom: 16 }, children: [
             J("p", { style: { fontSize: 15, fontWeight: 700, color: C.text, lineHeight: 1.5 }, children: josa(left, "이", "가") + " 이어봄을 그만두어 연결이 끊겼어요" }),
-            J("p", { style: { fontSize: 14, color: C.textSub, lineHeight: 1.6, marginTop: 4 }, children: "내가 남긴 메모와 답은 그대로 볼 수 있어요." })
+            J("p", { style: { fontSize: 14, color: C.textSub, lineHeight: 1.6, marginTop: 4 }, children: "내가 남긴 통화 메모와 답은 그대로 볼 수 있어요." })
           ] }),
           chips,
           !left ? J(ContactCalendar, { dataFamily, who, partner: name, fams: shown, view, setView, picked, setPicked, filter: tab, onOpen: (id) => setSelected(findEntry(id)), onOpenNews: (id) => {
@@ -16856,7 +16855,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
       }, onDeleted: () => {
         deleteRecord(selected.rec);
         setSelected(null);
-        flash("메모를 지웠어요");
+        flash("통화 메모를 지웠어요");
       } }, selected.uid || selected.id)
     ] });
   }
@@ -16912,7 +16911,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     return JS("div", { "data-code-link": where, style: { ...CARD, padding: where === "home" ? "26px 20px 22px" : "20px 18px 18px" }, children: [
       where === "home" && JS("div", { style: { textAlign: "center", marginBottom: 20 }, children: [
         J("p", { style: { fontSize: 20, fontWeight: 700, color: C.text, letterSpacing: "-0.03em", lineHeight: 1.45, marginBottom: 8 }, children: left ? JS(import_jsx_runtime.Fragment, { children: [josa(left, "이", "가") + " 이어봄을", J("br", {}), "그만두어 연결이 끊겼어요"] }) : cut ? "가족과 연결이 끊겼어요" : JS(import_jsx_runtime.Fragment, { children: ["가족과 이어지면", J("br", {}), "바로 시작돼요"] }) }),
-        J("p", { style: { fontSize: 15, color: C.textSub, lineHeight: 1.65 }, children: left ? "내가 남긴 메모와 답은 기록에 그대로 있어요." : cut ? "다시 신청해 들어가면 지난 기록도 그대로 보여요." : "내 코드를 보내거나, 가족에게 받은 코드를 넣어 주세요." })
+        J("p", { style: { fontSize: 15, color: C.textSub, lineHeight: 1.65 }, children: left ? "내가 남긴 통화 메모와 답은 기록에 그대로 있어요." : cut ? "다시 신청해 들어가면 지난 기록도 그대로 보여요." : "내 코드를 보내거나, 가족에게 받은 코드를 넣어 주세요." })
       ] }),
       JS("div", { "data-my-code": inGroup ? "family" : "mine", style: { background: WELL, borderRadius: R.sm, padding: "16px 16px 14px", textAlign: "center" }, children: [
         J("p", { style: { fontSize: 14, fontWeight: 700, color: C.textSub }, children: inGroup ? "우리 가족 코드" : "내 코드" }),
@@ -17025,7 +17024,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
         flash(josa(f.name, "을", "를") + " 가족에서 내보냈어요");
         onDisconnect(f.key);
       }, onCancel: () => setAsk(null) }),
-      leave && J(Dialog, { title: "가족에서 나갈까요?", body: "새 질문 \xB7 근황 \xB7 통화가 멈춰요. 내가 남긴 메모와 답은 기록에 남아요.", confirmLabel: "나가기", danger: true, onConfirm: () => {
+      leave && J(Dialog, { title: "가족에서 나갈까요?", body: "새 질문 \xB7 근황 \xB7 통화가 멈춰요. 내가 남긴 통화 메모와 답은 기록에 남아요.", confirmLabel: "나가기", danger: true, onConfirm: () => {
         setLeave(false);
         flash("가족에서 나왔어요");
         onLeave();
@@ -17267,8 +17266,8 @@ body { font-size: 16px; line-height: inherit; color: #000; }
       "내가 남긴 근황과 사진"
     ];
     const notShared = [
-      "통화 메모 · 메모 초안",
-      "메모로 만든 다음 통화 질문",
+      "통화 메모 · 통화 메모 초안",
+      "통화 메모로 만든 다음 통화 질문",
       "내가 만든 질문 \xB7 보내는 날 전까지",
       "앱 사용 기록과 아직 답하지 않은 질문"
     ];
@@ -17340,7 +17339,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     { q: "글자가 작아요", a: "글자 크게 보기를 켜면 글자와 버튼이 모두 커져요.", go: ["글자 크게 보기 켜기", "big"] },
     { q: "급한 일이 생겼어요", a: "이어봄 통화로는 112 \xB7 119 같은 긴급 전화를 걸 수 없어요." },
     { q: "통화하면 요금이 드나요?", a: "이어봄은 요금을 받지 않아요. 와이파이가 없으면 모바일 데이터를 쓰고, 데이터 요금은 쓰는 요금제를 따라요." },
-    { q: "내 메모를 가족이 볼 수 있나요?", a: "아니요. 메모는 나만 봐요. 가족에게는 질문에 쓴 답, 근황, 통화 편한 시간만 보여요.", go: ["가족에게 보이는 정보 보기", "privacy"] },
+    { q: "내 통화 메모를 가족이 볼 수 있나요?", a: "아니요. 통화 메모는 나만 봐요. 가족에게는 질문에 쓴 답, 근황, 통화 편한 시간만 보여요.", go: ["가족에게 보이는 정보 보기", "privacy"] },
     { q: "통화 내용이 저장되나요?", a: "두 사람 모두 통화 메모 초안을 켜 두었을 때만 통화를 녹음해요. 녹음은 글로 바꾸자마자(늦어도 1시간 안) 지우고, 글로 바꾼 통화 내용도 초안을 만든 뒤 지워요. 초안은 나만 보고, 내가 고쳐 저장할 때만 기록에 남아요. 마이에서 끌 수 있어요." },
     { q: "통화 편한 시간을 바꾸고 싶어요", a: "마이 > 통화 편한 시간에서 언제든 바꾸거나 비울 수 있어요.", go: ["통화 편한 시간 바꾸기", "schedule"] },
     { q: "내 코드를 보내고 싶어요", a: "마이 > 연결된 가족의 '내 코드'를 카카오톡으로 보내거나 복사해서 보내요. 가족이 그 코드를 넣으면 바로 이어져요.", go: ["연결된 가족 보기", "family"] },
@@ -17531,7 +17530,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
         setAskOut(false);
         onLogout();
       }, onCancel: () => setAskOut(false) }),
-      ask && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Dialog, { title: "탈퇴할까요?", body: famNames(parent) ? "메모와 기록이 모두 지워지고 " + withWa(famNames(parent)) + "의 연결도 끊겨요. 되돌릴 수 없어요." : "메모와 기록이 모두 지워져요. 되돌릴 수 없어요.", confirmLabel: "탈퇴하기", danger: true, onConfirm: () => {
+      ask && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Dialog, { title: "탈퇴할까요?", body: famNames(parent) ? "통화 메모와 기록이 모두 지워지고 " + withWa(famNames(parent)) + "의 연결도 끊겨요. 되돌릴 수 없어요." : "통화 메모와 기록이 모두 지워져요. 되돌릴 수 없어요.", confirmLabel: "탈퇴하기", danger: true, onConfirm: () => {
         setAsk(false);
         onWithdraw();
       }, onCancel: () => setAsk(false) })
@@ -17922,7 +17921,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     const got = newsFrom(fam, who).filter((n) => !n.askedOn && (n.pinned ? !n.dropped : talkLive(n) && daysSince(n.key) <= TALK_DAYS.news)).sort((a, b) => b.key.localeCompare(a.key));
     const newsTalk = (n) => ({ id: n.id, text: n.q, src: "news", when: n.key, limit: n.pinned ? null : "news", note: partnerName + " 근황 \xB7 " + dateLabel(n.key) + " \xB7 " + n.text, ref: n });
     // 39차 7회: 메모 하나에서 여러 이야기를 골랐으면 모두 보여 준다
-    const memo2 = pendingAsks(fam, who).filter((e) => talkLive(e.rec) && daysSince(e.key) <= TALK_DAYS.memo).flatMap((e) => (!e.aiRaw && e.rec.aiQs && e.rec.aiQs.length > 1 ? e.rec.aiQs : [e.aiQ]).map((q, i) => ({ id: e.id + (i ? ":" + i : ""), text: q || "", src: "memo", when: e.key, limit: "memo", note: "내 메모 \xB7 " + e.date, ref: e.rec, raw: e.aiRaw, pending: !e.aiQ, entry: e })));
+    const memo2 = pendingAsks(fam, who).filter((e) => talkLive(e.rec) && daysSince(e.key) <= TALK_DAYS.memo).flatMap((e) => (!e.aiRaw && e.rec.aiQs && e.rec.aiQs.length > 1 ? e.rec.aiQs : [e.aiQ]).map((q, i) => ({ id: e.id + (i ? ":" + i : ""), text: q || "", src: "memo", when: e.key, limit: "memo", note: "내 통화 메모 \xB7 " + e.date, ref: e.rec, raw: e.aiRaw, pending: !e.aiQ, entry: e })));
     // 질문 뒷이야기는 가장 최근에 함께 답한 질문 것만 (다음 질문을 함께 답하면 바뀜)
     const lastQ = allEntries(fam, who).find((e) => e.type === "question" && e.status === "both");
     const answer = (lastQ == null ? void 0 : lastQ.rec.follow) && !lastQ.rec.askedOn && talkLive(lastQ.rec) ? [{ id: lastQ.id + ":follow", text: lastQ.rec.follow[who], src: "answer", when: lastQ.key, note: "함께 답한 질문 \xB7 " + lastQ.date, ref: lastQ.rec }] : [];
@@ -18455,7 +18454,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", { width: size, height: size, viewBox: "0 0 12 12", "aria-hidden": "true", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { d: "M6 10.8C5.5 10.45 1 7.55 1 4.35A2.6 2.6 0 016 3.1a2.6 2.6 0 015 1.25c0 3.2-4.5 6.1-5 6.45z", fill: color }) });
   }
   var KIND = {
-    memo: { label: "메모", color: C.primary, bg: C.primaryLight },
+    memo: { label: "통화 메모", color: C.primary, bg: C.primaryLight },
     question: { label: "질문", color: C.accent2Deep, bg: C.accent2Light },
     news: { label: "근황", color: C.newsDeep, bg: C.newsLight }
   };
@@ -18478,7 +18477,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     ] });
   }
   function entryRow(e, onClick, tag = "") {
-    if (e.type === "memo") return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(RecordRow, { kind: "memo", meta: [tag, e.date, e.rec.askedOn ? e.rec.by === "parent" ? "물어봤어요" : "여쭤봤어요" : ""].filter(Boolean).join(" \xB7 "), text: e.rec.text || "기분만 남겼어요", muted: !e.rec.text, onClick, label: e.date + " 메모 보기" });
+    if (e.type === "memo") return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(RecordRow, { kind: "memo", meta: [tag, e.date, e.rec.askedOn ? e.rec.by === "parent" ? "물어봤어요" : "여쭤봤어요" : ""].filter(Boolean).join(" \xB7 "), text: e.rec.text || "기분만 남겼어요", muted: !e.rec.text, onClick, label: e.date + " 통화 메모 보기" });
     return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(RecordRow, { kind: "question", meta: (tag ? tag + " \xB7 " : "") + e.date + (e.status === "mineOnly" ? " \xB7 내 답만" : e.status === "sentFirst" ? " \xB7 먼저 보냄" : e.status === "theirFirst" ? " \xB7 먼저 온 답" : ""), text: e.question || "", onClick, label: e.date + " 질문 보기" });
   }
   function newsRow(n, who, partner, onClick, fresh = false) {
@@ -18507,7 +18506,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
           parent ? "물어볼" : "여쭤볼",
           " 이야기"
         ] }),
-        raw ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tag, { tone: "plain", children: "내가 쓴 메모" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tag, { children: "AI" })
+        raw ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tag, { tone: "plain", children: "내가 쓴 통화 메모" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tag, { children: "AI" })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", { onClick: () => setAsked(rec, !rec.askedOn), "aria-label": rec.askedOn ? (parent ? "물어봤어요" : "여쭤봤어요") + " 표시 되돌리기" : parent ? "물어봤어요" : "여쭤봤어요", "aria-pressed": !!rec.askedOn, style: { width: "100%", display: "flex", alignItems: "flex-start", gap: 14, padding: "12px 0 4px", background: "none", border: "none", cursor: "pointer", fontFamily: "inherit", textAlign: "left" }, children: [
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { width: 26, height: 26, borderRadius: 13, border: "2px solid " + (rec.askedOn ? C.accent2 : C.border), background: rec.askedOn ? C.accent2 : C.white, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", marginTop: 1 }, children: rec.askedOn && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", { width: "13", height: "13", viewBox: "0 0 12 12", fill: "none", children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { d: "M2 6.2l2.8 2.8L10 3.6", stroke: "white", strokeWidth: "1.9", strokeLinecap: "round", strokeLinejoin: "round" }) }) }),
@@ -18591,7 +18590,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
           }) })
         ] }, y)) }),
         J("div", { "aria-label": "이번 달 기록 수", style: { display: "flex", gap: 14, padding: "0 2px", marginBottom: 12 }, children: [
-          { kind: "memo", label: "메모", value: memoCount },
+          { kind: "memo", label: "통화 메모", value: memoCount },
           { kind: "question", label: "질문", value: qCount },
           { kind: "news", label: "근황", value: newsCount }
         ].map((x) => JS("span", { style: { display: "flex", alignItems: "center", gap: 5, opacity: show(x.kind) ? 1 : 0.35, transition: "opacity .15s" }, children: [
@@ -18610,7 +18609,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
           const news = !future && show("news") && newsOn(key).length > 0;
           const today = key === TODAY_KEY;
           const isSel = key === sel;
-          const label = view.m + 1 + "월 " + d + "일" + (memo2 ? " 메모 있음" : "") + (question ? " 함께 답한 질문 있음" : "") + (news ? " 근황 있음" : "");
+          const label = view.m + 1 + "월 " + d + "일" + (memo2 ? " 통화 메모 있음" : "") + (question ? " 함께 답한 질문 있음" : "") + (news ? " 근황 있음" : "");
           return JS("button", { disabled: future, onClick: () => setPicked(isSel ? null : key), "aria-label": label, "aria-pressed": isSel, style: { height: 50, background: "none", border: "none", cursor: future ? "default" : "pointer", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-start", gap: 2, padding: 0, fontFamily: "inherit" }, children: [
             JS("span", { style: { position: "relative", width: 32, height: 32, display: "flex", alignItems: "center", justifyContent: "center" }, children: [
               news && J("svg", { "data-heart": "", "aria-hidden": "true", width: "38", height: "38", viewBox: "0 0 24 24", style: { position: "absolute", left: -3, top: -4, overflow: "visible" }, children: J("path", { d: HEART_D, fill: isSel ? today ? C.primary : C.newsSoft : C.newsFaint, stroke: today && !isSel ? C.primary : "none", strokeWidth: today && !isSel ? 1.1 : 0, strokeLinejoin: "round" }) }),
@@ -18645,7 +18644,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
         items.length === 0 ? J("p", { style: { fontSize: 15, color: C.textTertiary, padding: "0 4px 12px", lineHeight: 1.6 }, children: sel ? sel === TODAY_KEY ? "오늘은 아직 남긴 기록이 없어요." : "이날은 남긴 기록이 없어요." : "이 달에는 남긴 기록이 없어요." }) : items.map((r) => J("div", { children: r.n ? newsRow(r.n, who, nameOf(r.n.fam), () => onOpenNews(r.n.id)) : entryRow(r.e, () => onOpen(r.e.uid), many ? r.e.type === "question" ? "가족" : r.e.fam.name : "") }, r.id)),
         onWrite && sel && JS("button", { onClick: () => onWrite(sel), style: { width: "100%", marginTop: 4, height: 50, display: "flex", alignItems: "center", justifyContent: "center", gap: 6, borderRadius: R.btn, border: "1.5px dashed " + C.border, background: "none", cursor: "pointer", fontFamily: "inherit", fontSize: 16, fontWeight: 600, color: C.textSub }, children: [
           J("svg", { width: "16", height: "16", fill: "none", viewBox: "0 0 24 24", children: J("path", { d: "M12 5v14M5 12h14", stroke: C.textSub, strokeWidth: "2", strokeLinecap: "round" }) }),
-          "이날 메모 쓰기"
+          "이날 통화 메모 쓰기"
         ] })
       ] })
     ] });
@@ -18702,7 +18701,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
         !parent && fams.length > 1 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(FamilyPicker, { family, families: fams, onChange: setFamily })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { "data-cal-scroll": "", style: { flex: 1, overflowY: "auto", padding: "0 20px" }, children: [
-        waiting ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NoFamily, { parent, what: "메모 \xB7 질문 \xB7 근황이", onInvite, onInviteMgmt, onCode }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ContactCalendar, { dataFamily, who, partner: name, view, setView, picked, setPicked, onOpen: setDayOpen, onOpenNews: setNewsOpen, onWrite: (key) => {
+        waiting ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NoFamily, { parent, what: "통화 메모 \xB7 질문 \xB7 근황이", onInvite, onInviteMgmt, onCode }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ContactCalendar, { dataFamily, who, partner: name, view, setView, picked, setPicked, onOpen: setDayOpen, onOpenNews: setNewsOpen, onWrite: (key) => {
           queue("cal.view", view);
           queue("cal.pick", key);
           onWriteMemo(key);
@@ -18718,7 +18717,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
       }, onDeleted: () => {
         deleteRecord(dayEntry.rec);
         setDayOpen(null);
-        flash("메모를 지웠어요");
+        flash("통화 메모를 지웠어요");
       } }, dayOpen || "")
     ] });
   }
@@ -19076,7 +19075,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
       }
       setFeedback(false);
       go("splash");
-      flash(kind === "logout" ? "로그아웃했어요" : "탈퇴했어요. 메모와 답을 모두 지웠어요");
+      flash(kind === "logout" ? "로그아웃했어요" : "탈퇴했어요. 통화 메모와 답을 모두 지웠어요");
     }
     function onboardingDone(r) {
       if (invFlow) {
@@ -19373,7 +19372,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
           pick("cal.day", null);
           pick("mb.sel", null);
           back();
-          flash("메모를 지웠어요");
+          flash("통화 메모를 지웠어요");
         } }),
         screen === "questions" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(QuestionListScreen, { family: partner, dataFamily, who, qs, myAnswer, onBack: back, onOpen: (id) => {
           setQdId(id);
@@ -19557,12 +19556,12 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     { g: "home", name: "답 보낸 뒤", key: "home:sent", set: home({ "home.qs": "sent" }), card: "qwait", when: "내가 답했는데 상대가 아직 답하지 않았을 때. 상대가 답하면 '서로의 답이 열렸어요'로 바뀌어요.", note: "· 내 답과, 이미 답한 가족의 답이 바로 열려요(시연: 엄마 답). 아래 얼굴 줄에서 아직 안 답한 가족은 흐린 점선(시연: 아빠).\n· 시연은 6초 뒤 아빠도 답해 '아빠의 답도 열렸어요' 알림이 뜨고 카드가 '답 열림'으로 바뀌어요.\n· 모두 답했으면 바로 '답 열림'이에요. 할 일이 없어진 질문 카드는 맨 뒤로 가요.", path: "답하기 → 답 보내기" },
     { g: "home", name: "먼저 보낼까요", key: "home:choose", set: home({ "home.qs": "choose" }), card: "q", when: "어제 질문에 내 답만 있고 가족 누구도 답하지 않은 채 오늘 새 질문이 왔을 때 한 번만.", note: "· 어제 질문에 내 답만 있고 가족 누구도 답하지 않은 채 오늘 새 질문이 왔을 때 한 번만. 가족 얼굴 줄(나만 체크) · '아직 아무도 답하지 않았어요. 내 답만 먼저 보낼까요?' · '먼저 보내기' · '나만 보고 끝내기'.\n· 누가 한 명이라도 답했으면 이미 서로 답이 열려 있어서 이 카드는 나오지 않아요. 먼저 보내면 가족에게 내 답만 가고, 끝내면 나만 봐요. 어느 쪽이든 어제 날짜로 기록에 남아요.\n· 가족이 먼저 보냈으면 '엄마가 먼저 보낸 답이에요' · '확인했어요'(다른 경우). 고르면 카드가 오늘 온 새 질문으로 넘어가요. (명세서 Q-08)", path: "답 보낸 뒤 3일", alts: [["가족이 먼저 답을 보냈을 때", home({ "home.qs": "received", "home.timing": "off" })]] },
     { g: "home", name: "답 열림", key: "home:answer", set: home({ "home.qs": "opened" }), card: "q", when: "두 사람이 같은 질문에 모두 답했을 때.", note: "· 질문과 이어진 가족 모두의 답 · 내 답을 원문 그대로 보여 줘요(시연: 엄마 · 아빠 · 나).\n· '확인했어요'를 누르면 질문이 끝나고 카드는 '다음 질문'으로 바뀌어 맨 뒤로 가요. (명세서 Q-03 · HOME-01)", path: "상대도 답한 뒤" },
-    { g: "home", name: "다 답한 뒤", key: "home:done", set: home({ "home.timing": "off" }), card: "qwait", when: "이번 질문을 둘 다 답하고 '확인했어요'까지 눌렀을 때 (할 일이 없을 때).", note: "· 카드 이름은 '다음 질문'. 질문은 매일 자정에 와요.\n· '내일의 질문 · 4시간 뒤에 와요' 칸에 AI가 고른 내일 질문을 미리 보여 주고, '내일 질문 바꾸기'로 고쳐요(바꾼 뒤엔 '바꾼 질문 고치기'). 엄마가 먼저 바꿨으면 '엄마가 만든 질문이 와요'.\n· 이어온 기록(함께 답한 질문 · 남긴 메모 · 이어진 지 며칠)과 '지난 질문 보기'가 있어요. 통화 횟수는 보여 주지 않아요. (명세서 HOME-02 · HIST-04)", path: "답 열림 → 확인했어요" },
+    { g: "home", name: "다 답한 뒤", key: "home:done", set: home({ "home.timing": "off" }), card: "qwait", when: "이번 질문을 둘 다 답하고 '확인했어요'까지 눌렀을 때 (할 일이 없을 때).", note: "· 카드 이름은 '다음 질문'. 질문은 매일 자정에 와요.\n· '내일의 질문 · 4시간 뒤에 와요' 칸에 AI가 고른 내일 질문을 미리 보여 주고, '내일 질문 바꾸기'로 고쳐요(바꾼 뒤엔 '바꾼 질문 고치기'). 엄마가 먼저 바꿨으면 '엄마가 만든 질문이 와요'.\n· 이어온 기록(함께 답한 질문 · 남긴 통화 메모 · 이어진 지 며칠)과 '지난 질문 보기'가 있어요. 통화 횟수는 보여 주지 않아요. (명세서 HOME-02 · HIST-04)", path: "답 열림 → 확인했어요" },
     { g: "home", name: "못 받은 전화", key: "home:missed", card: "missed", set: home({ "home.timing": "off", "home.missed": true }), when: "가족이 이어봄으로 건 전화를 받지 못했을 때.", note: "· 맨 앞 카드로 '엄마가 전화했었어요 · 조금 전' · '엄마께 다시 걸기' · '확인했어요'.\n· '다시 걸기'는 통화 화면으로 가요(전화는 늘 통화 화면에서 걸어요). 그 화면 위에 '엄마가 전화했었어요' 안내가 보여요.\n· 확인하거나 통화 화면에서 나오면 빠지고, 그냥 두면 다음 날 사라져요. 잠금 화면 알림을 눌러도 이 카드부터. (명세서 CALL-01)", path: "걸려온 전화를 받지 않고 두면", alts: [["못 받은 전화 · 통화 화면", scr("call", { "home.missed": true })]] },
     { g: "home", name: "지금 둘 다 통화 편한 시간", key: "home:timing", set: home(), card: "timing", when: "두 분이 고른 통화 편한 시간 칸이 겹치는 때(시연: 평일 저녁 6–9시).", note: "· '지금 엄마 · 아빠와 통화 편한 시간이에요' · '서로 고른 평일 저녁 6–9시가 겹쳐요' · 사람마다 여쭤볼 이야기 첫 줄(나만 보여요) · '전화 걸기'.\n· '전화 걸기'는 통화 화면으로 가서 누구에게 걸지 골라요. 겹치는 가족이 한 명이면 그 사람만 적어요.\n· 답할 질문이 있어도 이 카드가 앞이고, 그 시간이 끝나거나 통화하면 빠져요. (명세서 TIME-04 · CALL-01)", path: "평일 저녁 7시, 홈을 열면" },
     { g: "home", name: "오늘의 근황", key: "home:newsIn", set: home({ "home.timing": "off", "app.newsNew": true }), card: "news", when: "가족이 오늘 근황을 올렸을 때(시연: 엄마가 올린 텃밭 영상).", note: "· 맨 위 동그라미 줄은 근황 보기만 해요: 나(오늘 안 올렸으면 '올리기') · 이어진 가족 · + 초대. 오늘 새 근황은 색 테두리, 본 것은 회색, 안 올렸으면 점선(눌리지 않음).\n· 가족을 누르면 오늘 근황을 바로 크게 봐요. 근황 하나에 막대 한 칸 · 사진은 장당 4초씩 흐려지며 이어서 · 영상은 길이만큼. 오른쪽을 누르면 다음, 왼쪽은 이전, 누르고 있으면 멈추고, 끝나면 닫혀요.\n· '다음 통화 때 여쭤보기'를 누르면 그 이야기가 여쭤볼 이야기 맨 앞에 들어가요. 시연: 엄마가 오늘 올린 근황 2개(꽃길 사진 3장 · 텃밭 영상). (명세서 NEWS-02 · CUR-01)", path: "상대가 근황을 보낸 뒤 홈", alts: [["근황을 크게 볼 때", home({ "home.timing": "off", "app.newsNew": true, "home.story": true })]] },
     { g: "home", name: "통화 메모 초안", key: "home:draft", card: "draft", set: home({ "home.timing": "off", "app.draft": true }), when: "통화 뒤 메모 초안을 저장하지 않고 나왔거나, 만드는 중에 나갔다가 초안이 다 됐을 때.", note: "· 저장하지 않은 통화 메모 초안이 홈 카드로 남아요: '11월 12일 · 엄마와의 통화' · 초안 첫 세 줄 · '확인하고 저장하기' · '초안 지우기'(되돌리기 가능).\n· 만드는 중에 나갔다가 다 되면 제목이 '통화 메모 초안이 다 됐어요'(다른 경우). 저장하거나 지우면 빠지고, 3일 뒤 저절로 지워져요. 초안은 나만 봐요. (명세서 MEM-01 · AI-02)", path: "통화 후 메모 → 나중에 하기", alts: [["만드는 중에 나갔다가 다 됐을 때", home({ "home.timing": "off", "app.draftNew": true })]] },
-    { g: "home", name: "가족 신청", key: "home:join", set: home({ "home.timing": "off", "app.joinReq": true }), note: "· 누가 우리 가족 코드를 넣고 신청하면 바로 알림이 오고, 홈 맨 앞에 '가족 신청' 카드: '민준이가 가족에 들어오고 싶어 해요 · 자녀로 들어와요' · '수락' · '거절'.\n· 가족 누구든 한 명이 수락하면 들어와요(가족 모두에게 알림). 모르는 사람이면 거절 — 상대에게는 '이어지지 않았어요'로만 알려요. 7일 지나면 저절로 사라져요.\n· 수락하면 동생도 질문 · 근황을 함께하고 홈 동그라미 · 통화 · 기록에 나와요. 통화 · 메모 · 여쭤볼 이야기는 1:1. (명세서 REL-01 · 05)", path: "누가 우리 가족 코드를 넣고 신청하면", alts: [["부모님 화면 (자녀 지우)", home({ "app.viewer": "parent", "home.timing": "off", "app.joinReq": true })]] },
+    { g: "home", name: "가족 신청", key: "home:join", set: home({ "home.timing": "off", "app.joinReq": true }), note: "· 누가 우리 가족 코드를 넣고 신청하면 바로 알림이 오고, 홈 맨 앞에 '가족 신청' 카드: '민준이가 가족에 들어오고 싶어 해요 · 자녀로 들어와요' · '수락' · '거절'.\n· 가족 누구든 한 명이 수락하면 들어와요(가족 모두에게 알림). 모르는 사람이면 거절 — 상대에게는 '이어지지 않았어요'로만 알려요. 7일 지나면 저절로 사라져요.\n· 수락하면 동생도 질문 · 근황을 함께하고 홈 동그라미 · 통화 · 기록에 나와요. 통화 · 통화 메모 · 여쭤볼 이야기는 1:1. (명세서 REL-01 · 05)", path: "누가 우리 가족 코드를 넣고 신청하면", alts: [["부모님 화면 (자녀 지우)", home({ "app.viewer": "parent", "home.timing": "off", "app.joinReq": true })]] },
     { g: "home", name: "이어진 가족 없음", key: "home:solo", set: home({ "app.solo": true, "app.fresh": true }), note: "· 가족이 없을 때의 홈. 첫 카드에 '내 코드'(카카오톡으로 보내기 · 복사)와 '가족에게 받은 코드 넣기'가 있어요.\n· 가족은 한 그룹이에요. 코드를 넣으면 '철수 님의 코드예요 · 가족이 되기를 신청해요' → '신청하기'. 상대(이미 있는 가족이면 가족 누구든)가 수락하면 이어지고, 7일 지나면 신청은 사라져요(시연은 5초 뒤 수락).\n· 엄마 · 아빠는 한 가족에 한 분씩, 자녀는 여러 명(자녀끼리도 같은 가족). 엄마 · 아빠끼리만은 시작할 수 없어요. 처음 이어질 때 넣은 쪽 코드가 '우리 가족 코드'가 돼요.\n· 코드는 대문자+숫자 7자리(0 · O · 1 · I · L 없음) · 소문자도 받음 · 10분 안 5번 틀리면 10분 막힘. 연결이 끊겼으면 '가족과 연결이 끊겼어요', 상대가 탈퇴했으면 '엄마가 이어봄을 그만두어 연결이 끊겼어요'.\n· 시연 코드: 내 코드 K7P-3XQ9 · 영희 님 가족 F8G-2HB6 · 아빠 철수 D2H-6NV5 · 동생 민준 S9M-2FC4. (명세서 HOME-02 · REL-05)", path: "가입을 마치면 · 가족에서 나오면", alts: [["가족 코드를 넣었을 때", home({ "app.solo": true, "app.fresh": true, "link.code": "F8G2HB6" })], ["한 사람의 코드를 넣었을 때 (아빠)", home({ "app.solo": true, "app.fresh": true, "link.code": "D2H6NV5" })], ["신청하고 기다릴 때", home({ "app.solo": true, "app.fresh": true, "app.joinOut": true })], ["여러 번 틀렸을 때", home({ "app.solo": true, "app.fresh": true, "link.locked": true })], ["내 코드를 넣었을 때", home({ "app.solo": true, "app.fresh": true, "link.code": "K7P3XQ9" })], ["부모님 · 엄마 · 아빠끼리", home({ "app.viewer": "parent", "app.solo": true, "app.fresh": true, "link.code": "D2H6NV5" })], ["부모님 · 이미 엄마가 있는 가족", home({ "app.viewer": "parent", "app.solo": true, "app.fresh": true, "link.code": "F8G2HB6" })], ["연결이 끊겼을 때", home({ "app.solo": true })], ["상대가 탈퇴했을 때", home({ "app.solo": true, "app.partnerLeft": true })]] },
     { g: "home", name: "부모님 홈", key: "home:parent", set: home({ "app.viewer": "parent", "home.qs": "new" }), note: "· 부모님이 볼 때의 홈. 구성은 자녀와 같고(동그라미 줄 · 카드 · 근황 올리기 · 통화), 카드 아래 점 양옆에 '이전 · 다음 카드' 화살표가 있어요.\n· 가족 전체 기준이에요(시연: 내 이름의 자녀 · 민준이). 시연에선 부모님 화면에 배우자(아빠)를 보여 주지 않아요. 질문 · 근황은 가족 모두와, 통화는 통화 화면에서 사람을 골라요.\n· 답하기는 '말로 답하기'가 먼저예요. 처음엔 보통 글씨이고, 큰 글씨는 다른 경우 '글자를 크게 볼 때'. (명세서 ACC-01)", path: "아래 '보는 사람' → 부모님", alts: [["앱 공지가 있을 때", home({ "app.viewer": "parent", "home.qs": "new", "app.notice": true })], ["글자를 크게 볼 때", home({ "app.viewer": "parent", "app.big": true, "home.qs": "new" })]] },
     { g: "qa", name: "답하기", key: "qa:form", set: scr("questionAnswer", { "qa.step": "form" }), note: "· 위 제목은 '오늘의 질문'. 글로 쓰거나 '말로 답하기'로 답해요(들어오기만 해서는 녹음하지 않음).\n· '답하기 · 글로 쓰기'로 오면 글칸에 바로 커서, '말로 답하기'로 오면 말하기 단추가 먼저예요. 부모님은 '눌러서 말하기'와 사용법 한 줄.\n· 말한 내용은 글로 바뀌어 칸에 들어오고, 고친 뒤 보내요. 녹음 · 변환 중엔 '답 보내기'가 잠겨요. 보내면 홈 '답 보낸 뒤'로 돌아가요. (명세서 Q-04)", path: "홈 오늘의 질문 → 답하기" },
@@ -19576,29 +19575,29 @@ body { font-size: 16px; line-height: inherit; color: #000; }
     { g: "qa", name: "만든 질문 고치기", key: "mq:edit", set: scr("makeQuestion", { "app.reservedQ": "처음 혼자 여행 간 곳은 어디였어요?" }), note: "· 내 질문으로 바꾼 내일의 질문을 보내기 전까지(4시간 뒤) 다시 열어 고치거나 '지우기'로 지워요. 지우면 원래대로 AI 질문이 가요.\n· 내일의 질문은 가족 모두에게 하나예요. 홈 '다음 질문' 카드의 '바꾼 질문 고치기'로 열려요. (명세서 Q-07)", path: "질문 만들기 → 이 질문 보내기 → 다시 열기" },
     { g: "qa", name: "엄마가 먼저 만들었을 때", key: "mq:partner", set: scr("makeQuestion", { "app.partnerQ": "first" }), note: "· 둘 다 질문을 만들면 먼저 보낸 질문이 4시간 뒤, 나중 질문이 28시간 뒤에 가요.\n· 엄마가 먼저 만들었으면 맨 위에 '엄마가 먼저 만든 질문이 4시간 뒤에 가요'. 엄마 질문 내용은 함께 받을 때까지 안 보여요.\n· 먼저 간 질문이 지워지면 뒤 질문이 한 차례 앞당겨져요. (명세서 Q-07)", path: "상대가 먼저 질문을 만든 뒤 → 질문 만들기" },
     { g: "qa", name: "쓰던 질문 나가기", key: "mq:leave", set: scr("makeQuestion", { "mq.leave": true }), note: "· 질문을 쓰다가 뒤로 가면 한 번 물어요. 나가면 보내지 않고 지워져요.", path: "질문 만들기 → 쓰는 중에 뒤로" },
-    { g: "call", name: "통화", key: "call", set: scr("call"), when: "홈 '통화' 네모를 눌렀을 때. 지금은 두 분이 정한 시간이 겹치는 때예요.", note: "· 전화는 늘 이 화면에서 걸어요(홈 '통화' · 통화 편한 시간 카드 · 못 받은 전화 '다시 걸기'). 맨 위에서 누구에게 걸지(엄마 · 아빠) 골라요(시연: 아빠를 고르면 낚시 이야기).\n· 여쭤볼 이야기는 개수로 자르지 않아요: 제목에 전체 수('3개'), 3개가 넘으면 위 3개만 펼치고 나머지는 '2개 더 보기'처럼 접어요. 줄마다 어디서 나왔는지와 만든 날짜, '빼기'(되돌리기 가능). 나만 보여요.\n· 순서: 근황에서 직접 넣은 것 → 이번 통화가 마지막 기회인 것 → 기한이 이틀 안에 끝나는 것 → 나머지는 최근 것부터. 근황 7일 · 메모 14일 · 통화 두 번(안 누름)이면 빠지고, 10개를 넘으면 가장 오래된 것부터 빠져요.\n· 아래 녹음 안내 한 줄 + '엄마께 전화 걸기'(확인 창 없이 바로 걸고, 거는 중에 취소할 수 있어요). 가족이 한 명이면 고르는 줄 없이 '엄마와 통화'. (명세서 TIME-04 · 05 · CALL-01 · AI-02 · TALK-01)", path: "홈 → 통화", alts: [["휴대폰 알림이 꺼졌을 때", scr("call", { "app.osNotifOff": true })]] },
+    { g: "call", name: "통화", key: "call", set: scr("call"), when: "홈 '통화' 네모를 눌렀을 때. 지금은 두 분이 정한 시간이 겹치는 때예요.", note: "· 전화는 늘 이 화면에서 걸어요(홈 '통화' · 통화 편한 시간 카드 · 못 받은 전화 '다시 걸기'). 맨 위에서 누구에게 걸지(엄마 · 아빠) 골라요(시연: 아빠를 고르면 낚시 이야기).\n· 여쭤볼 이야기는 개수로 자르지 않아요: 3개가 넘으면 위 3개만 펼치고 나머지는 '2개 더 보기'처럼 접어요. 줄마다 어디서 나왔는지와 만든 날짜, '빼기'(되돌리기 가능). 나만 보여요.\n· 순서: 근황에서 직접 넣은 것 → 이번 통화가 마지막 기회인 것 → 기한이 이틀 안에 끝나는 것 → 나머지는 최근 것부터. 근황 7일 · 통화 메모 14일 · 통화 두 번(안 누름)이면 빠지고, 10개를 넘으면 가장 오래된 것부터 빠져요.\n· 아래 녹음 안내 한 줄 + '엄마께 전화 걸기'(확인 창 없이 바로 걸고, 거는 중에 취소할 수 있어요). 가족이 한 명이면 고르는 줄 없이 '엄마와 통화'. (명세서 TIME-04 · 05 · CALL-01 · AI-02 · TALK-01)", path: "홈 → 통화", alts: [["휴대폰 알림이 꺼졌을 때", scr("call", { "app.osNotifOff": true })]] },
     { g: "call", name: "통화 · 겹치지 않을 때", key: "call:off", set: scr("call", { "home.timing": "off" }), when: "지금은 두 분 시간이 겹치는 때가 아니거나, 이번 시간에 이미 전화를 걸었을 때.", note: "· 위 칸이 '둘 다 통화 편한 시간 · 평일 저녁 6–9시 · 이 시간이 되면 알려 드려요'로 바뀌고 '통화 편한 시간 바꾸기'(시간 표)로 가요. 시간을 안 정했으면 '통화 편한 시간 정하기'.\n· 전화는 언제든 걸 수 있어요. 여쭤볼 이야기를 다 물어봤으면 '모두 여쭤봤어요'. (명세서 TIME-01 · 04)", path: "홈 → 통화 (겹치는 시간이 아닐 때)" },
-    { g: "call", name: "통화 · 메모 원문", key: "call:raw", set: scr("call", { "home.timing": "raw" }), when: "여쭤볼 이야기가 메모로 만든 AI 문장인데, 검사를 통과하지 못했을 때.", note: "· 메모로 만든 AI 문장이 검사를 통과하지 못하면 어디서든 AI 문장 대신 '내가 쓴 메모' 원문을 보여요. 메모를 고치면 다시 만들어요. (명세서 AI-04)", path: "홈 → 통화" },
+    { g: "call", name: "통화 · 내가 쓴 통화 메모", key: "call:raw", set: scr("call", { "home.timing": "raw" }), when: "여쭤볼 이야기가 통화 메모로 만든 AI 문장인데, 검사를 통과하지 못했을 때.", note: "· 통화 메모로 만든 AI 문장이 검사를 통과하지 못하면 어디서든 AI 문장 대신 '내가 쓴 통화 메모' 원문을 보여요. 통화 메모를 고치면 다시 만들어요. (명세서 AI-04)", path: "홈 → 통화" },
     { g: "call", name: "걸려온 전화", key: "home:ringIn", set: home({ "home.timing": "off", "home.ringIn": true }), note: "· 가족이 걸면 휴대폰 전화처럼 바로 울려요(아이폰 기본 화면 · 이름 줄 '이어봄 · 엄마'). '거절' · '받기'.\n· 받으면 통화 중 → 끝나면 통화 후 메모. 거절하면 거는 쪽에 '지금은 받기 어려워요'.\n· 안 받으면(시연 15초) '못 받은 전화' 카드 · 통화 화면 안내 · 잠금 화면 알림이 생겨요. 녹음 안내는 받은 뒤 통화 중 안내 줄로 보여요. (명세서 CALL-01)", path: "가족이 이어봄으로 전화를 걸면", alts: [["마이크를 꺼 둔 채 받기", home({ "home.timing": "off", "home.ringIn": true, "app.micOff": true })]] },
     { g: "call", name: "통화 중", key: "home:calling", set: scr("call", { "home.calling": true }), note: "· 통화 화면 '전화 걸기'를 누르면 바로 '전화 거는 중…'(취소 가능) → 받으면 통화 시간 · 음소거 · 스피커 · 통화 끝내기. 통화가 이어지면 위에 여쭤볼 이야기 첫 줄('모두 보기'로 전부 · 어디서 나왔는지와 날짜), 가운데에 받아쓴 글을 화자 구분 없이 한 덩어리로 보여 줘요(나만 보임 · '받아쓰는 중'). 받아쓰기는 두 분 모두 통화 메모 초안을 켜서 녹음할 때만이고, 아니면 '녹음하지 않는 통화라 받아쓰지 않아요'. 시연은 약 13초 동안 문장이 하나씩 붙어요.\n· 두 분 모두 통화 메모 초안을 켰으면 이름 아래 '통화를 녹음해 글로 바꿔요 · 녹음은 바로 지워요'.\n· 안 받음 · 못 받음 · 끊김은 '다시 걸기' · '닫기'(다른 경우). 걸기 중 '취소'는 통화로 치지 않아요. (명세서 CALL-01 · MEM-01)", path: "통화 → 전화 걸기", alts: [["받지 않을 때", scr("call", { "home.calling": true, "call.outcome": "noanswer" })], ["지금은 못 받을 때", scr("call", { "home.calling": true, "call.outcome": "decline" })], ["상대가 먼저 끊을 때", scr("call", { "home.calling": true, "call.outcome": "hangup" })], ["통화 중에 끊겼을 때", scr("call", { "home.calling": true, "call.outcome": "dropped" })], ["상대 마이크가 꺼져 있을 때", scr("call", { "home.calling": true, "call.partnerMic": true })]] },
-    { g: "call", name: "메모 초안 만드는 중", key: "pc:drafting", set: scr("postcall", { "pc.drafting": true }), note: "· 통화를 끝내면 바로 이 화면. 메모 칸에 '통화 내용을 정리하고 있어요…'와 '나가도 괜찮아요 · 다 되면 홈 카드로 알려 드려요'.\n· 단추는 '홈으로 가기' 하나. 다 되면 홈에 '통화 메모 초안이 다 됐어요' 카드(시연 2초).\n· 녹음은 두 분 모두 켰을 때만, 글로 바꾸자마자(늦어도 1시간) 지우고, 글로 바꾼 내용은 초안을 만든 뒤 지워요. (명세서 MEM-01 · AI-02)", path: "통화를 끝내면" },
+    { g: "call", name: "통화 메모 초안 만드는 중", key: "pc:drafting", set: scr("postcall", { "pc.drafting": true }), note: "· 통화를 끝내면 바로 이 화면. 통화 메모 칸에 '통화 내용을 정리하고 있어요…'와 '나가도 괜찮아요 · 다 되면 홈 카드로 알려 드려요'.\n· 단추는 '홈으로 가기' 하나. 다 되면 홈에 '통화 메모 초안이 다 됐어요' 카드(시연 2초).\n· 녹음은 두 분 모두 켰을 때만, 글로 바꾸자마자(늦어도 1시간) 지우고, 글로 바꾼 내용은 초안을 만든 뒤 지워요. (명세서 MEM-01 · AI-02)", path: "통화를 끝내면" },
     { g: "call", name: "통화 후 메모 · 초안", key: "pc:prompt", set: scr("postcall"), note: "· AI가 통화를 세 줄 안으로 줄인 초안을 고쳐 저장해요('AI 초안' · '틀린 곳은 고쳐 주세요. 통화 녹음은 지웠어요.').\n· 위에서부터 ① 여쭤본 이야기가 있으면 누르기 ② 통화 메모(글로 고치기).\n· '저장' · '나중에 하기'. 나중에 하면 초안은 홈 카드로 3일 남아요. 초안은 나만 봐요. (명세서 MEM-01 · 09 · AI-02)", path: "통화를 끝내면 → 초안이 채워지면" },
     { g: "call", name: "통화 후 메모 · 초안 없을 때", key: "pc:off", set: scr("postcall", { "app.noteOff": true }), note: "· 내가 또는 상대가 통화 메모 초안을 껐으면 초안 없이 빈 칸이에요: '통화 메모 초안이 꺼져 있어요. 직접 남기거나 마이에서 켤 수 있어요.'(상대가 끈 경우 문구가 달라요).\n· 직접 글로 써요. 아무것도 안 했으면 단추가 '지금은 건너뛰기'.\n· 1분이 안 된 통화 · AI가 못 만든 때도 같은 모양이고 문구만 달라요(다른 경우).", path: "마이 → 통화 메모 초안 끄기 → 통화를 끝내면", alts: [["상대가 꺼 두었을 때", scr("postcall", { "app.partnerNoteOff": true })], ["초안을 만들지 못했을 때", scr("postcall", { "pc.draftFail": true })], ["1분이 안 된 통화", scr("postcall", { "pc.short": true })]] },
-    { g: "call", name: "물어본 이야기 표시", key: "pc:asked", set: scr("postcall", { "pc.asked": true }), note: "· 여쭤본 이야기를 누르면 초록 체크가 되고, 통화 화면 · 홈 카드의 여쭤볼 이야기에서 빠져요. 이번 통화 화면에 있던 이야기가 모두 나와요(접혀 있던 것도). 줄마다 어디서 · 언제 나온 이야기인지 작게 보여요.\n· 안 누른 이야기는 남지만, 통화 두 번에 나오고도 안 누르면 빠져요. 그 메모엔 '○월 ○일에 여쭤봤어요'로 남아요(다시 누르면 되돌림).\n· 쓴 메모가 없으면 단추가 '메모 없이 마치기'. (명세서 MEM-11)", path: "통화 후 메모 → 여쭤본 이야기 누르기" },
-    { g: "call", name: "메모 정리", key: "pc:saved", set: scr("postcall", { "me.saved": true }), note: "· 저장하면 '기록에 남겼어요'와 남긴 메모, 아래에 다음 통화 때 여쭤볼 이야기 후보(AI)를 보여 줘요.\n· 후보는 여러 개 골라요. 고르면 단추가 '2개 넣기'처럼 바뀌고, 고른 이야기는 다음 통화 화면에 모두 나와요. 안 고르면 '고르지 않고 마치기'.\n· AI가 못 만들면 '지금은 만들지 못했어요. 메모는 남았어요' · '마치기'(다른 경우). 메모 상세에서 다시 만들 수 있어요. (명세서 AI-02 · MEM-01)", path: "통화 후 메모 → 저장", alts: [["AI 정리가 안 될 때", scr("postcall", { "me.saved": true, "me.aiFail": true })]] },
+    { g: "call", name: "물어본 이야기 표시", key: "pc:asked", set: scr("postcall", { "pc.asked": true }), note: "· 여쭤본 이야기를 누르면 초록 체크가 되고, 통화 화면 · 홈 카드의 여쭤볼 이야기에서 빠져요. 이번 통화 화면에 있던 이야기가 모두 나와요(접혀 있던 것도). 줄마다 어디서 · 언제 나온 이야기인지 작게 보여요.\n· 안 누른 이야기는 남지만, 통화 두 번에 나오고도 안 누르면 빠져요. 그 메모엔 '○월 ○일에 여쭤봤어요'로 남아요(다시 누르면 되돌림).\n· 쓴 통화 메모가 없으면 단추가 '통화 메모 없이 마치기'. (명세서 MEM-11)", path: "통화 후 메모 → 여쭤본 이야기 누르기" },
+    { g: "call", name: "통화 메모 정리", key: "pc:saved", set: scr("postcall", { "me.saved": true }), note: "· 저장하면 '기록에 남겼어요'와 남긴 통화 메모, 아래에 다음 통화 때 여쭤볼 이야기 후보(AI)를 보여 줘요.\n· 후보는 여러 개 골라요. 고르면 단추가 '2개 넣기'처럼 바뀌고, 고른 이야기는 다음 통화 화면에 모두 나와요. 안 고르면 '고르지 않고 마치기'.\n· AI가 못 만들면 '지금은 만들지 못했어요. 통화 메모는 남았어요' · '마치기'(다른 경우). 통화 메모 상세에서 다시 만들 수 있어요. (명세서 AI-02 · MEM-01)", path: "통화 후 메모 → 저장", alts: [["AI 정리가 안 될 때", scr("postcall", { "me.saved": true, "me.aiFail": true })]] },
     { g: "call", name: "제안 피드백", key: "home:feedback", set: home({ "home.timing": "off", "home.feedback": true }), note: "· 통화 편한 시간에 걸어 통화를 마치고 홈에 돌아오면 '통화 편한 시간 안내는 어땠어요?'를 한 번 물어요(답은 상대에게 안 보임).\n· '도움이 됐어요'가 아니면 '통화 편한 시간을 조정하시겠어요?' → '시간 조정하기'(시간 표) · '괜찮아요'(다른 경우). (명세서 TIME-06)", path: "통화(지금 둘 다 편한 시간) → 전화 걸기 → 통화 후 메모 → 저장 → 홈", alts: [["도움이 됐어요가 아닐 때", home({ "home.timing": "off", "home.feedback": true, "fb.adjust": true })]] },
-    { g: "archive", name: "기록", key: "arc", set: scr("archive"), note: "· 기록 탭은 달력 하나예요. 위에서 사람('모두 ▾') · 종류(전체 · 메모 · 질문 · 근황)를 걸러요.\n· '2026년 11월 ▾'를 누르면 연도별 열두 달이 펼쳐져 바로 고르고(기록 있는 달은 점), ‹ › 로 한 달씩 넘겨요.\n· 달 아래 한 줄은 그 달 메모 · 질문 · 근황 수예요(통화 횟수 아님). 날짜에 근황은 분홍 하트, 메모 · 질문은 갈색 메모 · 초록 말풍선.\n· 달력 아래엔 그 달 기록이 최근 것부터 쌓이고 줄마다 '엄마' · '아빠'를 적어요. 누르면 상세. 홈 '지난 질문 보기'는 '질문'으로 걸러 열어요.\n· 상대가 탈퇴했으면 내 기록만 목록으로, 이어진 가족이 없으면 '홈에서 가족과 이어지기' 단추 하나. (명세서 HIST-01 · 03 · 04 · Q-08)", path: "아래 탭 → 기록", alts: [["다른 달 고르기", scr("archive", { "arc.jump": true })], ["지난 질문 보기로 왔을 때", scr("archive", { "arc.tab": "question" })], ["상대가 탈퇴했을 때", scr("archive", { "app.solo": true, "app.partnerLeft": true })]] },
+    { g: "archive", name: "기록", key: "arc", set: scr("archive"), note: "· 기록 탭은 달력 하나예요. 위에서 사람('모두 ▾') · 종류(전체 · 통화 메모 · 질문 · 근황)를 걸러요.\n· '2026년 11월 ▾'를 누르면 연도별 열두 달이 펼쳐져 바로 고르고(기록 있는 달은 점), ‹ › 로 한 달씩 넘겨요.\n· 달 아래 한 줄은 그 달 통화 메모 · 질문 · 근황 수예요(통화 횟수 아님). 날짜에 근황은 분홍 하트, 통화 메모 · 질문은 갈색 메모 · 초록 말풍선.\n· 달력 아래엔 그 달 기록이 최근 것부터 쌓이고 줄마다 '엄마' · '아빠'를 적어요. 누르면 상세. 홈 '지난 질문 보기'는 '질문'으로 걸러 열어요.\n· 상대가 탈퇴했으면 내 기록만 목록으로, 이어진 가족이 없으면 '홈에서 가족과 이어지기' 단추 하나. (명세서 HIST-01 · 03 · 04 · Q-08)", path: "아래 탭 → 기록", alts: [["다른 달 고르기", scr("archive", { "arc.jump": true })], ["지난 질문 보기로 왔을 때", scr("archive", { "arc.tab": "question" })], ["상대가 탈퇴했을 때", scr("archive", { "app.solo": true, "app.partnerLeft": true })]] },
     { g: "archive", name: "그날 기록", key: "arc:day", set: scr("archive", { "cal.pick": "2026-11-04" }), note: "· 날짜를 누르면 아래 목록이 그날 기록만 남아요('11월 4일 수요일'). 같은 날을 다시 누르거나 '11월 전체 보기'로 돌아가요.\n· 이어지기 전 · 오늘 뒤 날짜는 흐리고 못 눌러요.", path: "기록 → 날짜 누르기" },
-    { g: "archive", name: "기록 상세", key: "arc:detail", set: scr("archive", { "arc.sel": "2026-11-04:memo" }), note: "· 메모 · 질문 줄을 누르면 상세가 떠요. 메모는 내 메모와 그 메모로 만든 여쭤볼 이야기 — 이야기 줄을 누르면 '○월 ○일에 여쭤봤어요'.\n· 질문은 가족 모두에게 간 질문이라 줄에 '가족'. 상세엔 답한 가족 모두의 답과 내 답, 답하지 않은 가족은 '아빠 · 답하지 않았어요'. 누가 만든 질문인지(AI · 가족 · 나)도 표시.\n· '메모 고치기' · '닫기'. AI가 이야기를 못 만든 메모는 '다시 만들기'. (명세서 MEM-05 · 08 · 11 · AI-02 · 05)", path: "기록 → 항목 누르기", alts: [["질문 상세 (가족 답)", scr("archive", { "arc.sel": "2026-11-04:question" })], ["답하지 않은 가족이 있는 질문", scr("archive", { "arc.sel": "2026-10-21:question" })]] },
+    { g: "archive", name: "기록 상세", key: "arc:detail", set: scr("archive", { "arc.sel": "2026-11-04:memo" }), note: "· 통화 메모 · 질문 줄을 누르면 상세가 떠요. 통화 메모는 내가 쓴 글과 그 메모로 만든 여쭤볼 이야기 — 이야기 줄을 누르면 '○월 ○일에 여쭤봤어요'.\n· 질문은 가족 모두에게 간 질문이라 줄에 '가족'. 상세엔 답한 가족 모두의 답과 내 답, 답하지 않은 가족은 '아빠 · 답하지 않았어요'. 누가 만든 질문인지(AI · 가족 · 나)도 표시.\n· '통화 메모 고치기' · '닫기'. AI가 이야기를 못 만든 통화 메모는 '다시 만들기'. (명세서 MEM-05 · 08 · 11 · AI-02 · 05)", path: "기록 → 항목 누르기", alts: [["질문 상세 (가족 답)", scr("archive", { "arc.sel": "2026-11-04:question" })], ["답하지 않은 가족이 있는 질문", scr("archive", { "arc.sel": "2026-10-21:question" })]] },
     { g: "archive", name: "근황 상세", key: "arc:news", set: scr("archive", { "arc.news": "n-mom" }), note: "· 근황 줄을 누르면 근황 상세(홈 · 기록에서 같은 모양). 받은 근황엔 여쭤볼 이야기와 '여쭤봤어요' 표시.\n· 내 근황은 '가족에게 보냄'이 붙고 지울 수 있어요(가족 화면 · 이야기 소재에서도 빠짐). (명세서 HIST-01 · MEM-05)", path: "기록 → 근황 → 항목 누르기" },
-    { g: "archive", name: "메모 고치기", key: "memoEdit:edit", set: scr("memoEdit", { "memo.edit": "2026-11-04" }), note: "· 메모 상세의 '메모 고치기'로 열어요. 고치면 그 메모로 여쭤볼 이야기를 다시 만들고, '지우기'로 지우면 메모와 이야기가 함께 사라져요.\n· 저장은 메모 글이 있어야 켜져요. 저장 · 뒤로 가면 메모 상세로 돌아가요. (명세서 MEM-05 · 08)", path: "기록 → 메모 → 메모 고치기" },
+    { g: "archive", name: "통화 메모 고치기", key: "memoEdit:edit", set: scr("memoEdit", { "memo.edit": "2026-11-04" }), note: "· 통화 메모 상세의 '통화 메모 고치기'로 열어요. 고치면 그 메모로 여쭤볼 이야기를 다시 만들고, '지우기'로 지우면 통화 메모와 이야기가 함께 사라져요.\n· 저장은 통화 메모 글이 있어야 켜져요. 저장 · 뒤로 가면 통화 메모 상세로 돌아가요. (명세서 MEM-05 · 08)", path: "기록 → 통화 메모 → 통화 메모 고치기" },
     { g: "archive", name: "지난달", key: "arc:calPrev", set: scr("archive", { "cal.prev": true }), note: "· ‹ 로 지난달을 봐요. 가족과 이어진 달보다 앞으로는 가지 않고, 아래 목록도 그 달 기록으로 바뀌어요.", path: "기록 → 달 옆 ‹" },
     { g: "my", name: "마이", key: "settings", set: scr("settings"), note: "· 이름 · '이름 바꾸기'(20자 · 빈 이름 저장 안 됨) 아래 설문 카드(0 · 3 · 6주차).\n· 연결된 가족 · 통화 편한 시간 / 가족 전화 받기(알림 · 마이크 확인, 꺼진 것만 '켜기') · 통화 메모 초안 켜고 끄기 · 글자 크게 보기.\n· 개인정보와 안내(가족에게 보이는 정보 · 약관 · 처리방침 · AI 안내) · 도움말 · 문의(답마다 바로 할 수 있는 단추, 보낸 문의와 답) · 로그아웃 · 탈퇴.\n· 알림 설정은 따로 없고 휴대폰 설정에서 해요. 가족과 이어지기 전에는 '나는 엄마' 줄이 생겨 신분을 바꿀 수 있어요(다른 경우). (명세서 AUTH-02 · ACC-01 · DATA-04)", path: "아래 탭 → 마이", alts: [["가족 전화 받기", scr("settings", { "my.callReady": true })], ["가족 전화 · 알림이 꺼졌을 때", scr("settings", { "my.callReady": true, "app.osNotifOff": true })], ["도움말 · 문의", scr("settings", { "my.help": true })], ["문의에 답이 왔을 때", scr("settings", { "my.help": true, "app.inquiryAnswered": true })], ["이름 바꾸기", scr("settings", { "my.name": true })], ["가족과 이어지기 전 · 신분 바꾸기", scr("settings", { "app.solo": true, "app.fresh": true, "my.identity": true })]] },
-    { g: "my", name: "연결된 가족", key: "familyMgmt", set: scr("familyMgmt"), note: "· 우리 가족 목록(나 포함)과 사람마다 '내보내기'(한 번 더 물어요). 가족 누구든 내보낼 수 있고, 다시 신청해 들어오면 지난 기록도 그대로 보여요.\n· '가족 더 잇기'는 '우리 가족 코드' 보내기만 있어요(코드 넣기는 가족이 없을 때만). 가족 신청이 오면 맨 위에 '수락 · 거절' 카드.\n· 맨 아래 '가족에서 나가기' — 다른 가족으로 옮기려면 먼저 나와요(가족끼리는 합치지 않음). 나가도 내 메모와 답은 기록에 남아요.\n· 엄마 · 아빠는 한 분씩, 자녀는 여러 명. (명세서 REL-01 · 04 · 05 · 06)", path: "마이 → 연결된 가족", alts: [["가족 신청이 왔을 때", scr("familyMgmt", { "app.joinReq": true })], ["가족에서 나가기", scr("familyMgmt", { "fm.leave": true })], ["부모님 화면", scr("familyMgmt", { "app.viewer": "parent" })]] },
+    { g: "my", name: "연결된 가족", key: "familyMgmt", set: scr("familyMgmt"), note: "· 우리 가족 목록(나 포함)과 사람마다 '내보내기'(한 번 더 물어요). 가족 누구든 내보낼 수 있고, 다시 신청해 들어오면 지난 기록도 그대로 보여요.\n· '가족 더 잇기'는 '우리 가족 코드' 보내기만 있어요(코드 넣기는 가족이 없을 때만). 가족 신청이 오면 맨 위에 '수락 · 거절' 카드.\n· 맨 아래 '가족에서 나가기' — 다른 가족으로 옮기려면 먼저 나와요(가족끼리는 합치지 않음). 나가도 내 통화 메모와 답은 기록에 남아요.\n· 엄마 · 아빠는 한 분씩, 자녀는 여러 명. (명세서 REL-01 · 04 · 05 · 06)", path: "마이 → 연결된 가족", alts: [["가족 신청이 왔을 때", scr("familyMgmt", { "app.joinReq": true })], ["가족에서 나가기", scr("familyMgmt", { "fm.leave": true })], ["부모님 화면", scr("familyMgmt", { "app.viewer": "parent" })]] },
     { g: "my", name: "통화 편한 시간", key: "scheduleSetting", set: scr("scheduleSetting"), note: "· 가입 때와 같은 12칸 표(요일 × 아침 · 낮 · 저녁 · 밤)에서 바꿔요. 여러 칸 가능.\n· 이어진 가족이 고른 칸엔 오른쪽 위 초록 점(시연: 엄마 · 평일 저녁). 같은 칸이면 그 시간에 알려요.\n· 하나도 안 골라도 저장되고 그러면 알림이 오지 않는다고 알려요. 저장 안 하고 나가면 한 번 물어요. 캘린더 연결은 MVP에서 뺐어요. (명세서 TIME-01 · 04)", path: "마이 → 통화 편한 시간" },
-    { g: "my", name: "가족에게 보이는 정보", key: "privacyCenter", set: scr("privacyCenter"), note: "· 가족에게 보이는 것(답 · 같은 질문 · 통화 편한 시간 · 근황과 사진)과 나만 보이는 것(메모 · 메모 초안 · 여쭤볼 이야기 · 보내기 전 내가 만든 질문)을 한 화면에.\n· 맨 아래 통화 녹음 처리 한 줄. (명세서 PRIV-02)", path: "마이 → 가족에게 보이는 정보" },
-    { g: "my", name: "안내 문서", key: "docView", set: scr("docView", { "app.doc": "ai" }), note: "· 가입 때 동의한 약관 · 개인정보 처리방침 · AI 사용 안내를 다시 읽어요.\n· AI 제공사 · LiveKit 보관 기간은 '정한(확인한) 뒤 이 자리에 적습니다'로 비워 두었어요. 약관은 코드 연결 방식 · 매일 자정 질문에 맞춰 두었어요.", path: "마이 → AI 사용 · 메모 처리 안내" },
-    { g: "my", name: "탈퇴", key: "withdraw", set: scr("settings", { "my.withdraw": true }), note: "· '메모와 기록이 모두 지워지고 엄마 · 아빠와의 연결도 끊겨요. 되돌릴 수 없어요.'\n· 탈퇴하면 기록 · 설정 · 가족 연결 · 카카오 연결이 끊기고, 같은 카카오 계정으로 와도 새 가입이에요. (명세서 ACCOUNT-01)", path: "마이 → 탈퇴하기" },
+    { g: "my", name: "가족에게 보이는 정보", key: "privacyCenter", set: scr("privacyCenter"), note: "· 가족에게 보이는 것(답 · 같은 질문 · 통화 편한 시간 · 근황과 사진)과 나만 보이는 것(통화 메모 · 통화 메모 초안 · 여쭤볼 이야기 · 보내기 전 내가 만든 질문)을 한 화면에.\n· 맨 아래 통화 녹음 처리 한 줄. (명세서 PRIV-02)", path: "마이 → 가족에게 보이는 정보" },
+    { g: "my", name: "안내 문서", key: "docView", set: scr("docView", { "app.doc": "ai" }), note: "· 가입 때 동의한 약관 · 개인정보 처리방침 · AI 사용 안내를 다시 읽어요.\n· AI 제공사 · LiveKit 보관 기간은 '정한(확인한) 뒤 이 자리에 적습니다'로 비워 두었어요. 약관은 코드 연결 방식 · 매일 자정 질문에 맞춰 두었어요.", path: "마이 → AI 사용 안내" },
+    { g: "my", name: "탈퇴", key: "withdraw", set: scr("settings", { "my.withdraw": true }), note: "· '통화 메모와 기록이 모두 지워지고 엄마 · 아빠와의 연결도 끊겨요. 되돌릴 수 없어요.'\n· 탈퇴하면 기록 · 설정 · 가족 연결 · 카카오 연결이 끊기고, 같은 카카오 계정으로 와도 새 가입이에요. (명세서 ACCOUNT-01)", path: "마이 → 탈퇴하기" },
     { g: "my", name: "이용 설문", key: "survey", set: scr("survey"), note: "· 0 · 3 · 6주차에 짧은 설문(제목은 쓴 지 몇 주인지로 바뀜). 셋을 다 골라야 보내고, 보내면 마이의 설문 카드가 사라져요.\n· 문항은 운영팀 문항으로 바꿔 넣으면 돼요. (명세서 DATA-04)", path: "마이 → 이어봄, 6주 써보니 어떠세요?" },
     { g: "push", name: "잠금 화면 알림", key: "lock", set: scr("lock"), note: "· 알림은 일이 생길 때마다 바로 와요: '지금 엄마 · 아빠와 통화 편한 시간이에요' · '새 질문이 왔어요'(매일 자정) · '엄마가 답해서 서로의 답이 열렸어요' · '엄마가 오늘의 근황을 올렸어요'(누르면 근황을 크게).\n· 오늘 근황을 아직 안 올렸으면 '오늘의 주제 · 지금 계신 곳은 어때요? 사진 한 장으로 나눠 보세요.'가 하루 한 번 와요(누르면 근황 올리기). 탓하는 말은 쓰지 않아요.\n· 누르면 홈이 열리고 그 알림의 카드부터 보여요. 가족이 둘 이상이면 한 사람의 일(못 받은 전화 · 근황 · 먼저 온 답)엔 '이어봄 · 엄마'처럼 누구인지. 걸려온 전화는 바로 울려요.\n· 그 밖의 알림(다른 경우): '민준이가 가족에 들어오고 싶어 해요'(누르면 홈의 가족 신청 카드) · 문의 답 · 먼저 온 답 · 지난 질문. 끄고 켜기는 휴대폰 설정. (명세서 PUSH-01 · 02 · 03)", path: "휴대폰 잠금 화면", alts: [["못 받은 전화 알림", scr("lock", { "home.missed": true })], ["그 밖의 알림", scr("lock", { "app.lockMore": true, "app.dadNone": true })], ["가족이 둘일 때", scr("lock", { "app.dadLinked": true })]] }
   ];
@@ -19775,7 +19774,7 @@ body { font-size: 16px; line-height: inherit; color: #000; }
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("li", { children: [
             /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("b", { children: "통화 후에는" }),
-            "AI가 통화를 줄여 쓴 메모 초안을 고쳐서 남기고, 다음 통화 때 물어볼 것은 직접 골라요."
+            "AI가 통화를 줄여 쓴 통화 메모 초안을 고쳐서 남기고, 다음 통화 때 물어볼 것은 직접 골라요."
           ] }),
           /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("li", { children: [
             /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("b", { children: "근황은" }),
